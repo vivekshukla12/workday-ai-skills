@@ -32,7 +32,9 @@ Validate the query while transforming it. Check at minimum:
 - malformed nested field selections;
 - aliases in positions that appear invalid under the available Workday WQL documentation.
 
-Use Workday documentation supplied in the conversation when available. Do not claim tenant-level validation of data sources, fields, security, or business object relationships unless tenant metadata or execution results establish it.
+Before validating, read [references/wql-syntax.md](references/wql-syntax.md). Treat it as the bundled syntax baseline. If the user supplies newer Workday documentation, use it for version-specific rules while preserving this skill's output contract.
+
+Do not claim tenant-level validation of data sources, fields, security, or business object relationships unless tenant metadata or execution results establish it.
 
 ## Output contract
 
