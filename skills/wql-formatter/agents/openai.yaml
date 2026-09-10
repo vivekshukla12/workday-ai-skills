@@ -1,0 +1,4 @@
+interface:
+  display_name: "WQL Formatter"
+  short_description: "Format and minify Workday WQL queries"
+  default_prompt: "Use $wql-formatter to format or minify this WQL query."
