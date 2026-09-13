@@ -8,7 +8,7 @@ These skills provide focused instructions and supporting references that help co
 
 | Skill | Description |
 | --- | --- |
-| [WQL Formatter](skills/wql-formatter/) | Formats or minifies Workday Query Language queries while preserving their logic and identifying plausible syntax errors. |
+| [WQL Formatter](skills/wql-formatter/) | Formats or minifies Workday Query Language queries while preserving their logic and identifying plausible syntax errors. |\n| [Workforce Crisis Planner](skills/workforce-crisis-planner/) | Links workforce and financial data to crisis scenarios, gaps, approved mitigations, and implementation timelines. |
 
 Additional skills may be added under the `skills/` directory.
 

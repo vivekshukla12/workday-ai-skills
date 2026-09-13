@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workforce Crisis Planner"
+  short_description: "Model workforce and financial crisis exposure"
+  default_prompt: "Use $workforce-crisis-planner to assess workforce and financial resilience and maintain an approved crisis plan."
