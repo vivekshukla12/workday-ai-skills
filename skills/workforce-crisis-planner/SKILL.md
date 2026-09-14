@@ -35,6 +35,7 @@ Maintain a visible phase status and resume from the last completed phase.
 
 ## Workbook rules
 
+- Read [workbook-field-definitions.md](references/workbook-field-definitions.md) when creating, explaining, or revising the customer intake workbook. Treat its approved sheet and field decisions as the default schema, and record later walkthrough decisions there before changing the template.
 - Use the supplied template as the default structured library. Preserve its stable Scenario, Gap, Mitigation, Decision, and Milestone IDs and linked table structure.
 - Populate the Data Catalogue before loading observations. Keep Actual, Budget, Forecast, and Scenario versions distinct.
 - Use formulas for transparent derived metrics and preserve editable assumptions as inputs. Reconcile headcount, FTE, labor cost, revenue, and cash to named controls.
