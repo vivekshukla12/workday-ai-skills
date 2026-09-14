@@ -48,7 +48,7 @@ No employee-identifying or special-category data is needed on this sheet.
 
 ## Sheet 2 — WD Workforce Extract
 
-**Status:** Approved, except Off-site Capable FTE remains unresolved.
+**Status:** Approved.
 
 **Purpose:** Provide aggregated workforce supply using fields reasonably obtainable from Workday. Do not add non-Workday service assumptions to the extract.
 
@@ -66,7 +66,7 @@ No employee-identifying or special-category data is needed on this sheet.
 | FTE | Required | Aggregate full-time-equivalent capacity. |
 | FTE on Leave | Conditional | FTE included in reported FTE but unavailable due to On Leave status on the reporting date. No leave type, dates, medical reason, or Worker ID. |
 | Vacant FTE | Conditional | Approved position capacity currently unfilled, when reliable position data exists. |
-| Off-site Capable FTE | Unresolved | Decide later whether it is reliably extractable or belongs in assumptions. |
+| Off-site Capable FTE | Remove from standard Workday extract | This is not standard Workday data. Keep it as conditional customer input in Service Requirements. A verified custom Workday solution may be selected as its source, but never present it as standard Workday functionality. |
 | Scheduled Hours | Conditional extension | Exclude from the standard extract; add only for shift or short-duration hourly scenarios. |
 | Total Base Pay | Optional sensitive | Aggregated amount only when role-level costing is necessary and Compensation access is approved. Never treat it as total employment cost. |
 | Currency | Conditional | Include only when Total Base Pay is supplied. |
@@ -93,9 +93,22 @@ Apply a customer-approved minimum reporting-group threshold, preferably at least
 | Minimum Qualified Backup Headcount | Conditional | Minimum qualified backup coverage needed. |
 | Requirement Basis | Required | Neutral reference to an approved policy, continuity plan, SLA, exercise, or expert estimate. |
 | Approval Status | Required before use | Requirement must be approved before driving material conclusions; do not require approver identity. |
-| Capacity Allocation | Unresolved | Needed to prevent double-counting shared roles; decide later between percentage and Dedicated/Shared/Backup categories. |
+| Capacity Relationship | Conditional | Use the controlled bands Dedicated, Shared, or Backup. Do not require an allocation percentage. |
+| Capacity Available Without Normal Site | Conditional | Aggregated service capacity available when the normal location cannot be used. Enter only for relevant in-scope scenarios. Missing means Unknown, not zero. |
+| Off-site Capacity Unit | Conditional | FTE or Percent, required when Capacity Available Without Normal Site is entered. |
+| Off-site Capacity Source Type | Conditional | Manual Customer Input, Custom Workday Solution, or Other Approved System. Default to Manual Customer Input. Custom Workday Solution is permitted only when the customer confirms its custom calculation. |
 
 Do not add Service Code to the WD Workforce Extract. Relate workforce supply to service demand through Role Code and Location Code.
+
+Capacity Relationship definitions:
+
+- **Dedicated:** capacity is primarily reserved for this service.
+- **Shared:** the same role capacity supports multiple services.
+- **Backup:** capacity is normally used elsewhere but may support this service during disruption.
+
+Because these bands do not quantify allocation, the agent must not treat Shared or Backup capacity as fully available to every linked service. When exact allocation is necessary, request a customer assumption or run a clearly labelled range or conservative case.
+
+Do not infer Capacity Available Without Normal Site from a Workday work arrangement. It represents operational service capability, not merely permission to work remotely.
 
 ## Sheet 4 — WD Critical Skills & Credentials
 
@@ -400,4 +413,4 @@ Blocking examples include impossible workforce values, unmapped required codes, 
 
 ## Walkthrough status
 
-All customer-input and agent-managed workbook areas have now been reviewed and approved at the structural level. Unresolved items remain explicitly identified: placement of Off-site Capable FTE and the method for allocating shared role capacity across services.
+All customer-input and agent-managed workbook areas have now been reviewed and approved at the structural level. Off-site capacity is conditional customer input, and shared-role capacity uses the approved Dedicated, Shared, or Backup bands.
