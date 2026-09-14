@@ -326,6 +326,78 @@ Every result must prominently disclose:
 
 Baseline values should be derived from validated customer datasets where possible. Ask for a change amount or percentage instead of requesting the same baseline again.
 
-## Remaining walkthrough
+## Control Totals
 
-Checks definitions remain provisional until reviewed and approved.
+**Status:** Approved.
+
+**Purpose:** Collect only the small number of independent source-system totals needed to reconcile submitted data. Customers do not populate technical validation results.
+
+**Row definition:** One control total for one period or as-of date, domain, scope, and metric.
+
+| Field | Customer edits? | Requirement | Approved definition |
+| --- | --- | --- | --- |
+| Check ID | No | Calculated | Generate automatically. |
+| Period or As-of Date | Yes | Required | Use the applicable date basis for the controlled dataset. |
+| Domain | Yes | Required | Controlled value identifying WD Workforce, WD Critical Skills & Credentials, Finance, Operations, Dependencies, or another approved dataset. |
+| Scope Code | Yes | Conditional | Neutral entity or other approved scope code; permit ALL for a consolidated control. |
+| Metric | Yes | Required | Controlled measure such as Headcount, FTE, Vacant FTE, FTE on Leave, Revenue, Labor Cost, or Capacity. |
+| Source Control Total | Yes | Required for selected control | Total from an approved independent source-system report. |
+| Workbook Total | No | Calculated | Total calculated from submitted rows using the same scope and date basis. |
+| Variance | No | Calculated | Workbook Total minus Source Control Total. |
+| Tolerance Override | Yes | Optional | Customer-approved exception to the default tolerance. |
+| Status | No | Calculated | Pass, Fail, Warning, or Not Tested. |
+| Control Reference | Yes | Optional | Neutral report or evidence reference; do not enter internal report names, URLs, tenant links, or access details. |
+| Source Version | Limited | Dataset metadata | Prefer one dataset-level version rather than repetition per row. |
+| Owner Role | Yes | Optional | Accountable role such as HR Data Owner; do not request a person's name or email. |
+| Data Classification | Yes | Required | Internal, Confidential, or Highly Confidential. |
+
+For WD Workforce Extract, use Headcount and FTE as the minimum recommended controls. Add Vacant FTE and FTE on Leave when supplied. Require skills, finance, and operational controls only for included metrics and where an independent approved control exists.
+
+Exact financial control totals are Optional Sensitive. Missing optional controls create a disclosed limitation rather than an automatic conclusion that the data is incorrect.
+
+## Validation Results
+
+**Status:** Approved.
+
+**Whole sheet:** Calculated and protected. Customers must not populate or edit it.
+
+| Field | Approved definition |
+| --- | --- |
+| Check ID | Generated identifier. |
+| Check Category | Structure, Completeness, Validity, Reconciliation, Privacy, Mapping, Approval, or Assumption. |
+| Domain | Dataset checked. |
+| Check Description | Plain-language explanation of the test. |
+| Severity | Information, Warning, Indicative Only, or Blocking. |
+| Result | Pass, Warning, Fail, or Not Tested. |
+| Affected Row Count | Count of affected aggregate rows without reproducing sensitive records. |
+| Resolution Guidance | Specific correction or additional information needed. |
+| Simulation Impact | Final allowed, Indicative only, or Blocked. |
+| Run ID | Validation or simulation run identifier. |
+| Checked At | Execution timestamp where supported. |
+
+### Required automatic validations
+
+Test structure, required-field completeness, aggregate-row uniqueness, valid codes and mappings, date and unit validity, non-negative measures where appropriate, currency presence, version separation, approval gates, privacy thresholds, and reconciliation.
+
+Also test that:
+
+- FTE on Leave does not exceed FTE.
+- Minimum FTE and other business requirements have approval.
+- Shared capacity is not double-counted.
+- AI assumptions are visibly identified.
+- Unapproved assumptions are excluded from final simulations.
+- Optional sensitive values are not treated as required when their scenario is outside scope.
+- Exact sensitive data is used only when its purpose and approval are recorded.
+
+### Failure behavior
+
+- **Warning:** Continue and disclose the limitation.
+- **Indicative Only:** Permit an explicitly labelled indicative simulation but prohibit final conclusions.
+- **Blocking:** Stop simulation until corrected or approved.
+- **Not Tested:** Disclose that validation evidence is unavailable.
+
+Blocking examples include impossible workforce values, unmapped required codes, incompatible units, missing required approvals, or a final result that depends on an unapproved AI assumption. Missing optional financial data, banded dependency estimates, or unavailable independent controls normally produce warnings or indicative-only limitations rather than blocking unrelated scenarios.
+
+## Walkthrough status
+
+All customer-input and agent-managed workbook areas have now been reviewed and approved at the structural level. Unresolved items remain explicitly identified: placement of Off-site Capable FTE and the method for allocating shared role capacity across services.
