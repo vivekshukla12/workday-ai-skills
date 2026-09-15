@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workday Prism Assistant"
+  short_description: "Design, transform, secure, and troubleshoot Prism Analytics"
+  default_prompt: "Use $workday-prism-assistant to help with this Workday Prism Analytics requirement."
