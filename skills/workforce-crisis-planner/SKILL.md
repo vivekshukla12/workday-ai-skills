@@ -47,6 +47,15 @@ Maintain a visible phase status and resume from the last completed phase.
 
 Read [source-basis.md](references/source-basis.md) when selecting sources or explaining why a field, control, or workflow is included. Prefer current company-controlled Workday documentation, company policies, continuity standards, and authoritative public guidance. Cite sources beside hardcoded inputs or in the workbook Sources sheet. Treat documentation as a capability reference, not proof that a tenant has enabled or populated a feature.
 
+## Prism architecture references
+
+For a proposed Prism data layer supporting crisis simulation, use these downloadable design references:
+
+- [Prism architecture workbook](assets/prism-crisis-simulation-architecture.xlsx): logical datasets, approved workbook mappings, run metadata, controls, and implementation checklist.
+- [Prism architecture guide](references/prism-crisis-simulation-architecture.docx): platform responsibilities, data preparation, assumptions and reruns, security, reporting, and implementation guidance.
+
+These references describe a proposed architecture, not a deployed integration or executable simulation. Validate tenant capabilities and security before implementation. The approved workbook field definitions remain authoritative for customer intake; preserve their privacy and optional-sensitive-data rules. Keep customer-filled copies outside the public repository.
+
 ## Completion standard
 
 A phase is complete only when its required evidence, owner, version, and limitations are recorded. The overall plan is complete when material scenarios link to validated gaps, each proposed mitigation has an accountable decision, approved actions have an owned dependency-aware timeline, and unresolved data or governance blockers remain visible.
