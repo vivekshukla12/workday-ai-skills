@@ -1,46 +1,47 @@
-# Data requirements
+# Data requirements for the simplified workbook
 
-Tailor this catalogue to the company's industry, operating model, jurisdictions, configured Workday products, and lawful purpose. Do not claim that a field exists in a tenant until verified.
+Use [workbook-field-definitions.md](workbook-field-definitions.md) as the field-level authority. Request only the sheets and fields needed for the selected scope. This reference explains collection, not a second mandatory catalogue.
 
-## Workforce data
+## Minimum first submission
 
-| Domain | Typical items | Primary use |
-| --- | --- | --- |
-| Organization and assignment | Pseudonymous worker key, worker type, active status, company, supervisory organization, cost center, location, country, time zone, job profile, position, management level, FTE, scheduled hours, start and expected end dates | Scope, capacity, location, and cost allocation |
-| Criticality and demand | Critical role, critical service or process, minimum staffing, demand units, coverage hours, shift, on-call need, service priority, recovery objective | Required capacity and service continuity |
-| Skills and credentials | Skill, proficiency, certification or licence, expiry, language, lawful clearance, successor or backup role | Skill coverage, expiry risk, and single points of failure |
-| Compensation and labor cost | Base pay, pay frequency, plan, allowances, bonus target, employer taxes and benefits, overtime rules, currency, costing allocation | Baseline labor cost and option cost |
-| Time, absence, and availability | Schedule, actual hours where permitted, overtime, leave category, absence dates and duration, return status, work arrangement, remote eligibility | Deployable capacity and absence sensitivity |
-| Talent flow | Open positions, requisition status, vacancy age, candidate stage, time to fill, hire, transfer, exit, and retirement dates | Replacement and redeployment lead time |
-| Succession and continuity | Aggregated talent categories where lawful, successor coverage, readiness, backup coverage | Continuity options; never automated individual decisions |
-| Contractual constraints | Work authorization expiry, contractual hours, collective agreement, notice period, mobility preference, accommodation category only where lawful and necessary | Feasible scheduling, transfer, and consultation actions |
-| History | Periodic headcount, FTE, hires, exits, absence, overtime, vacancies, payroll cost, and organization history | Baselines, seasonality, and assumption calibration |
+Start with Start Here and aggregate WD Workforce. Add Service Requirements to evaluate service staffing gaps. Recommend independent headcount and FTE controls in Control Totals. Missing optional domains limit the corresponding conclusions; they do not block unrelated analysis.
 
-## Financial, operational, and external data
+| Workbook sheet | Source and use |
+| --- | --- |
+| Start Here | Neutral assessment ID, version, as-of date, horizon, units and approval statuses. |
+| WD Workforce | Workday aggregates by period, entity where relevant, location, role and Worker Type. Headcount and filled FTE; leave and vacancies only when reliable and relevant. Base pay is optional sensitive. |
+| Service Requirements | Customer-defined service minima, verified skill requirements and Dedicated/Shared/Backup bands. Off-site capacity is customer input, optionally from a verified custom Workday calculation. |
+| WD Skills & Credentials | Conditional aggregate verified critical skills and mandatory credentials. No self-assessment, worker identities or personnel notes. |
+| Financial Performance | Conditional finance-system inputs, kept separate from workforce extracts even when sourced from Workday Financial Management. Exact financial amounts are optional sensitive. |
+| Liquidity | Only for in-scope liquidity analysis with appropriate approvals. Exact values are optional sensitive. |
+| Operational Capacity | Conditional matching-period capacity, demand and output in declared units. |
+| Critical Dependencies | Conditional neutral dependency codes, impact bands, alternatives and switch times. Exact exposure is optional sensitive. |
+| Requested Scenarios | Optional plain-language customer requests, including relocation. Most proposals should come from the agent. |
+| Scenario Assumptions | Shared assumptions with original and editable current values, provenance and explicit approval for use. |
+| Control Totals | Selected independent source totals at matching scope, date, unit and version. Exact finance totals remain optional sensitive. |
 
-| Domain | Typical items | Primary use |
-| --- | --- | --- |
-| Profit and loss | Revenue, gross margin, operating expense, labor and contractor cost, overtime, restructuring cost, insurance recovery | Affordability and profit impact |
-| Cash and liquidity | Opening cash, operating cash flow, committed facilities, covenant headroom, payroll dates, payment terms, receivables aging, expected collections | Runway and response timing |
-| Balance sheet | Working capital, inventory, debt, leases, provisions, assets, and currency exposure | Resilience and asset exposure |
-| Budget and forecast | Approved budget, latest forecast, workforce plan, revenue drivers, volume, price, productivity, scenario version | Plan-versus-actual and alternative cases |
-| Customers and commitments | Customer or segment, contract, service obligation, backlog, recurring revenue, concentration, penalty, renewal, geography | Revenue at risk and service priority |
-| Suppliers and third parties | Supplier or category, spend, critical service, substitute, lead time, geography, financial health, contract and service level | Interruption and substitution time |
-| Operations and capacity | Site, process, product or service, capacity, throughput, utilization, downtime, inventory days, recovery objective, quality metric | Translate workforce gaps into service effects |
-| External indicators | Inflation, rates, FX, unemployment, health alerts, weather, energy, sanctions, transport, cyber indicators | Scenario triggers and calibration |
+AI Scenario Register, Validation Results, Simulation Runs and the four Plan Library sections are managed by the agent, with explicit customer decisions. Do not ask customers to fill technical validation outputs.
 
-## Required catalogue metadata
+## Source contract without extra customer columns
 
-For every data item record: ID, domain, business definition, source system, source object or report, grain, effective-date rule, required status, owner, refresh frequency, stable join key, permitted use, sensitivity, retention rule, quality control, status, source version, and notes.
+The agent records a compact private submission note containing each supplied dataset's version, date basis, units, population, role/location mappings, counting rule, source owner role and limitations. Reference this note in Simulation Runs or the private run snapshot. Do not repeat metadata in every row or invent a Data Catalogue or Sources tab.
 
-Use shared governed dimensions for Period, Legal Entity, Business Unit, Cost Center, Location, Service, Job Profile or Role, Worker Type, Currency, Scenario, and Version. Maintain crosswalks between Workday and external codes.
+Confirm:
+- FTE means filled capacity; vacancy is separate. Establish whether reported leave is included in FTE.
+- Point-in-time snapshots are not monthly averages. Do not sum headcount or FTE across snapshot dates.
+- Headcount counting rules address multiple assignments. Do not claim distinct people by adding overlapping populations.
+- Role and location crosswalks use neutral stable codes. No unmatched mapping may silently become zero.
+- Financial quantities have currency, period and amount/rate/index/band basis. Base pay has a known pay frequency if used.
+- Percent inputs use the template's stated convention; absent a statement, confirm whether 30 means 30% or whether 0.30 means 30%. Normalize once and record the convention.
 
-## Minimum controls
+## Privacy and conditional collection
 
-- **Completeness:** profile missing required fields by business unit and location.
-- **Uniqueness:** test the declared grain and flag duplicate worker-period, position-period, ledger-period, and scenario IDs.
-- **Validity:** validate dates, currency, hours, FTE, pay frequency, status, and controlled categories.
-- **Reconciliation:** tie headcount and FTE to approved Workday controls; tie payroll and financial amounts to ledger or forecast controls.
-- **Timeliness:** compare refresh age with decision frequency and visibly mark stale data.
-- **Privacy and access:** enforce minimum necessity, role-based access, retention, pseudonymization, lawful basis, and human review.
-- **Versioning:** timestamp or version extracts, assumptions, analyses, recommendations, decisions, and approvals.
+Use aggregate non-identifying data by default. Keep small-group suppression and controls against re-identification through comparisons consistent across inputs and outputs. Confirm the customer's threshold; a generic threshold is not proof of anonymity. Suppressed values remain unknown.
+
+Do not request worker keys, leave reasons, individual dates, protected characteristics, salary records, performance ratings, customer/supplier names, contracts, tenant URLs or access details for the portable pilot.
+
+If the scope needs more than the approved fields, first explain the missing decision evidence and seek an aggregate or assumption-based alternative. Any additional sensitive collection needs an explicit purpose and authorization. Declining optional sensitive data is allowed; mark the affected metric unavailable or indicative instead of inventing an amount.
+
+## Validation
+
+Test aggregate-key uniqueness, required-field completeness within scope, date and unit validity, approved mappings, source versions and reconciliation. Keep unknown, zero and not applicable distinct. Record evidence and outcome in Validation Results; record unexecuted checks as Not Tested. Read [analysis-method.md](analysis-method.md) for metric-specific prerequisites and scoped failure handling.

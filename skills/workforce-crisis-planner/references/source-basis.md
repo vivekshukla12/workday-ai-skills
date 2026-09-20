@@ -1,6 +1,6 @@
 # Source basis
 
-Use the most current accessible versions and record exact title, publication or access date, relevant section, and URL or controlled location in the workbook Sources sheet.
+Use the most current accessible versions and record exact title, publication or access date, relevant section, and URL or controlled location in a private source note linked from the relevant Evidence Reference, Basis or run snapshot. The simplified workbook has no Sources sheet. Keep source titles, dates and public URLs where applicable; never publish private evidence.
 
 ## Workday documentation
 

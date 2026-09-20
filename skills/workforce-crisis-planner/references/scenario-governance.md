@@ -1,36 +1,47 @@
 # Scenario library and approval governance
 
-## Relational records
+## Use the approved workbook
 
-Use stable IDs and versioned records. Relationships are `Scenario -> Gap -> Mitigation -> Decision -> Milestone`.
+Preserve stable Scenario, Assumption, Run, Gap, Mitigation, Decision and Milestone IDs. The links are Scenario -> Run -> Gap -> Mitigation -> Decision -> Milestone. Retain prior runs; new runs do not overwrite historical findings.
 
-One scenario can have several gaps; one gap several mitigation options; one mitigation several review decisions over time; and one approved mitigation several milestones. Do not duplicate the scenario narrative in downstream tables.
+Most scenarios are agent proposals derived from validated evidence. Requested Scenarios is optional and accepts plain-language disruptions and strategic changes such as relocation, expansion, consolidation or outsourcing. Proposals are not predictions. Use Workforce Availability rather than People and Health as a category; other categories may cover operations, technology, supply chain, market demand, natural hazards and combined crises.
 
-## Scenario record
+Record proposals in AI Scenario Register with origin, rationale, neutral scope, confidence, sensitivity and version. Customer review is required before detailed simulation. Approved scenarios may support final analysis; explicitly authorized indicative runs may evaluate proposals with limitations.
 
-Record identity and version; title and category; status and owner; confidentiality; event and causal chain; scope and exclusions; horizon, onset, duration, and recovery pattern; evidence, observation date, rationale, confidence, and last review; workforce, productivity, demand, price, cost, cash, FX, supplier, facility, and technology assumptions; leading indicators, thresholds, source, frequency, trigger owner, and activation level; affected services, roles, skills, locations, customers, suppliers, legal duties, statements, and cash; decision authority, consultation requirements, approval state, conditions, expiry, next review, and evidence links.
+## Assumptions and reruns
 
-Starter categories: people and health; economic and market; operational; technology and cyber; supply chain; climate and natural hazard; legal and regulatory; security and geopolitical; reputation and conduct; combined crisis.
+Use the single Scenario Assumptions sheet. Customers edit Current Value in place. Preserve Original Value and Original Origin. Prefer validated data for the baseline and explicit customer assumptions for hypothetical changes. An assumption changes a scenario, never silently rewrites a source fact.
 
-## Mitigation record
+Current Value Owner reflects confirmed provenance. A difference between values cannot authenticate an editor; confirm edits on resubmission or use available workflow evidence. Customer confirmation of an unchanged AI estimate does not turn it into observed data: retain its AI origin and basis.
 
-Classify options as Prevent, Prepare, Detect, Respond, Recover, or Adapt. Link each option to a scenario and gap. Record protected service, affected workforce, expected benefit, cost and cash timing, lead time, dependencies, legal or consultation review, people impact, reversibility, residual risk, proposed owner, evidence, and proposal status.
+For each run, save the submitted workbook and complete assumption snapshot in approved private storage. Record references in Simulation Runs. Snapshot values, units, scope, timing, origin, basis, approval and scenario version, plus dataset versions and calculation/model version. Do not invent storage locations or audit evidence. If durable storage is unavailable, return the snapshot to the user for retention and state the limitation.
 
-## Decision discussion
+Any changed value, unit, scope, timing or material basis invalidates prior approval for that changed assumption until reviewed. Do not overwrite the user's current row or require a replacement row. Retain old run snapshots; increment the scenario version for material approved changes.
 
-Review one scenario at a time:
+Final runs use Approved assumptions only. Indicative Only assumptions require an indicative run. Not Approved assumptions cannot drive calculations. If excluding an assumption removes a necessary input, the affected result is unavailable. Report all AI-origin assumptions actually used, including customer-confirmed estimates, and what evidence would replace them.
 
-1. Confirm definition, evidence, assumptions, horizon, and trigger.
-2. Review baseline controls, missing data, and confidence.
-3. Validate services, minimum levels, role and skill gaps, people risks, and financial exposure.
-4. Compare options, dependencies, lead times, cash needs, legal constraints, and residual risk.
-5. Ask the user or named authority for an explicit decision for each option.
-6. Record Approved, Approved with conditions, Rejected, Deferred, or More analysis required, plus rationale, dissent, authority, required reviews, effective date, expiry, review date, cost, evidence, and record owner.
+## Mitigation and decision discussion
 
-Never infer approval from silence, positive sentiment, workshop attendance, or selection for further analysis.
+Plan Library has four sections: Workforce Gaps, Mitigation Options, Decisions and Timeline. Use their existing fields. Supporting evidence may be a neutral reference to a private note, not a new mandatory column.
 
-## Timeline
+For each scenario, explain the gap, evidence, alternatives, expected benefit, cost limitations, lead time, dependencies, consultation needs, people impact, reversibility and residual risk. Use accountable roles rather than personal identities.
 
-Use relative time first: before trigger, detection, immediate response, stabilization, continuity, recovery, and adaptation. Add calendar dates only from the user's trigger or approved target dates. Record milestone ID, scenario ID, mitigation ID, phase, milestone, owner, predecessor, relative start and finish, planned start and finish, status, percent complete, deliverable or evidence, blocker, next update, and last-updated date.
+Ask for an explicit decision for each option: Approved, Approved with conditions, Rejected, Deferred or More analysis required. Record authority role, date, rationale, conditions, review date and private evidence reference. Never infer approval from silence or interest.
 
-Every scheduled milestone must trace to an approved or conditionally approved mitigation. Conditions that block execution must remain visible.
+Scenario approval authorizes simulation only. Mitigation approval records the chosen plan; actual business execution has separate authorization and applicable reviews. Changed inputs or findings require reassessment of affected decisions; keep prior records and mark them stale in the run note until reviewed.
+
+## Timelines
+
+Only approved or conditionally approved options enter an implementation timeline. Keep execution-blocking conditions visible.
+
+Ask only for missing scheduling inputs: trigger/target date, lead times, durations, calendar basis, owner roles and predecessors. Without confirmed dates, use relative timing; without durations, mark them unknown rather than invent commitments. For finish-to-start tasks, earliest start is the later of the agreed trigger/availability date and all predecessor finishes, using the agreed calendar. Flag cycles and impossible target dates. Do not treat elapsed days as working days.
+
+## Exercise mode and private records
+
+At the start, distinguish a demo exercise from live customer planning. Confirm that any supplied tenant data is permitted for this workflow; demo tenant access does not establish export permission. Use aggregates and neutral codes.
+
+Label exercise decisions, plans and output summaries as exercises. Keep all exercise/customer inputs, snapshots, findings and results outside the public skill repository. Running this skill grants no permission to write to GitHub. Do not send tenant details to public search queries or repository issues. Propose generic improvements separately for review, without copying test records.
+
+## Fresh-chat pilot
+
+Read [pilot-workflow.md](pilot-workflow.md) for the first customer-style test and acceptance criteria.

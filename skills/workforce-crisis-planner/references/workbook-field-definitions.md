@@ -1,6 +1,8 @@
 # Workbook sheet and field definitions
 
-This reference records approved design decisions for the customer crisis-simulation intake workbook. Use it when explaining fields, assessing necessity, or revising the template. A field remains provisional until its sheet walkthrough is approved.
+This reference records approved design decisions for the customer crisis-simulation intake workbook. Use it when explaining fields, assessing necessity, or revising the template. The sheet structure has been approved. The shipped tab names are WD Workforce and WD Skills & Credentials; longer extract labels below describe those same tabs.
+
+Calculated means agent-managed unless the workbook actually contains a verified formula. The portable template does not authenticate editors, run validations or simulate automatically. Apply the calculation prerequisites in [analysis-method.md](analysis-method.md).
 
 ## Workbook-wide data-minimization and sensitivity standard
 
@@ -42,7 +44,7 @@ Do not request employee names, personnel numbers, email addresses, raw health or
 | Data-owner Approval | Required before simulation | Record status only; do not require the approver's name. |
 | Privacy Review | Required before simulation unless formally exempt | Record status and, if needed, a non-sensitive approval reference. |
 | Known Limitations | Optional | Record material limitations without names, individual cases, confidential narrative, or embedded extracts. |
-| Readiness Checks | Calculated | Lock formula cells; do not run material conclusions until readiness conditions pass. |
+| Readiness Checks | Calculated | Agent records readiness after executing applicable checks; blank or Not Tested is not Pass. |
 
 No employee-identifying or special-category data is needed on this sheet.
 
@@ -63,7 +65,7 @@ No employee-identifying or special-category data is needed on this sheet.
 | Role Code | Required | Use a governed Job Profile or Job Family mapping. Do not use Position ID or identifying business titles. |
 | Worker Type | Required | Retain the Workday term and accept customer-configured values or an approved broader mapping. |
 | Headcount | Required | Aggregate worker count. |
-| FTE | Required | Aggregate full-time-equivalent capacity. |
+| FTE | Required | Aggregate filled full-time-equivalent capacity; vacancies are separate. |
 | FTE on Leave | Conditional | FTE included in reported FTE but unavailable due to On Leave status on the reporting date. No leave type, dates, medical reason, or Worker ID. |
 | Vacant FTE | Conditional | Approved position capacity currently unfilled, when reliable position data exists. |
 | Off-site Capable FTE | Remove from standard Workday extract | This is not standard Workday data. Keep it as conditional customer input in Service Requirements. A verified custom Workday solution may be selected as its source, but never present it as standard Workday functionality. |
@@ -72,7 +74,7 @@ No employee-identifying or special-category data is needed on this sheet.
 | Currency | Conditional | Include only when Total Base Pay is supplied. |
 | Row Status | Remove | Final templates contain no sample rows; examples belong in help text. |
 
-Apply a customer-approved minimum reporting-group threshold, preferably at least five workers. Suppress or combine smaller groups. Do not request names, Worker IDs, Position IDs, emails, protected characteristics, health details, absence reasons, performance or talent ratings, or personnel comments.
+Apply a customer-approved minimum reporting-group threshold and controls against re-identification through comparisons. A threshold alone does not establish anonymity. Suppress or combine smaller groups and treat suppressed values as unknown. Do not request names, Worker IDs, Position IDs, emails, protected characteristics, health details, absence reasons, performance or talent ratings, or personnel comments.
 
 ## Sheet 3 — Service Requirements
 
@@ -150,10 +152,10 @@ These inputs are external financial or operational data even when a customer hap
 | Version | Required | Actual, Budget, or Forecast; never mix versions without identification. |
 | Entity Code | Conditional | Use for multi-entity reporting. |
 | Financial Planning Unit Code | Conditional | Governed cost center, business unit, profit center, or equivalent. Map to services separately where possible. |
-| Revenue | Conditional | Aggregated revenue for the stated scope. Permit indexed or percentage values for screening. |
-| Contribution Margin | Conditional | Use only when the customer already calculates it and supplies its definition; do not assume Gross Margin. |
-| Aggregate Labor Cost | Conditional | Finance-defined total workforce-related operating cost. Prefer this over treating Workday Base Pay as complete cost. |
-| Non-labor Operating Cost | Conditional | Aggregated non-workforce operating cost. |
+| Revenue | Optional sensitive for exact amounts; conditional for screening | Aggregated revenue for the stated scope. Permit indexed or percentage values for screening. |
+| Contribution Margin | Optional sensitive for exact amounts; conditional for screening | Use only when the customer already calculates it and supplies its definition; do not assume Gross Margin. |
+| Aggregate Labor Cost | Optional sensitive for exact amounts; conditional for screening | Finance-defined total workforce-related operating cost. Prefer this over treating Workday Base Pay as complete cost. |
+| Non-labor Operating Cost | Optional sensitive for exact amounts; conditional for screening | Aggregated non-workforce operating cost. |
 | Currency | Conditional | Required with exact monetary values; derive from Base Currency when already converted. |
 
 ### Liquidity
@@ -167,7 +169,7 @@ These inputs are external financial or operational data even when a customer hap
 | Entity Code | Conditional | Entity holding the liquidity. |
 | Available Cash | Optional sensitive | Prefer runway band, percentage, or indexed value for screening. |
 | Committed Liquidity | Optional sensitive | Prefer a band or percentage; exact facility data requires approval. |
-| Minimum Required Liquidity | Conditional | Approved finance assumption. |
+| Minimum Required Liquidity | Optional sensitive for exact amounts; conditional for screening | Approved finance assumption. |
 | Currency | Conditional | Required with exact monetary values. |
 | Row ID | Calculated | Generate automatically. |
 
@@ -318,9 +320,11 @@ Use assumptions in this priority order:
 
 Never silently invent missing values or present an AI assumption as a customer fact. Prefer a range over unsupported precision. Every AI-generated assumption must identify the missing input, exact assumption, basis, confidence, result sensitivity, and information the customer can provide to improve the next run.
 
-The customer may overwrite Current Value directly. Original Value and Original Origin remain protected. If Current Value differs from Original Value, Current Value Owner becomes Customer and Review Status becomes Customer Adjusted. Changing a value back must not erase evidence that it was reviewed where the platform can retain update metadata.
+The customer may overwrite Current Value directly. Original Value and Original Origin remain protected. After confirming that the customer changed Current Value, the agent records Current Value Owner as Customer and Review Status as Customer Adjusted. A value difference alone does not establish who edited it; Excel cannot authenticate the editor. Changing a value back must not erase evidence that it was reviewed where the platform can retain update metadata.
 
 A portable workbook preserves the original value, current value, source, status, and simulation run. Complete cell-by-cell edit history requires platform version history or an application database and is not required in the portable first version.
+
+Changing value, unit, scope, timing or material basis requires renewed approval for that assumption before use. Preserve earlier run snapshots. Retain AI origin even when a customer confirms an AI estimate; confirmation is not observed evidence.
 
 Use clear visual markers for assumption origin and status. Highlight unapproved high-impact AI assumptions as warnings.
 
@@ -394,7 +398,7 @@ Test structure, required-field completeness, aggregate-row uniqueness, valid cod
 
 Also test that:
 
-- FTE on Leave does not exceed FTE.
+- FTE on Leave does not exceed FTE when it represents leave included in that FTE. Confirm the inclusion and time basis; do not subtract it twice.
 - Minimum FTE and other business requirements have approval.
 - Shared capacity is not double-counted.
 - AI assumptions are visibly identified.
@@ -406,7 +410,7 @@ Also test that:
 
 - **Warning:** Continue and disclose the limitation.
 - **Indicative Only:** Permit an explicitly labelled indicative simulation but prohibit final conclusions.
-- **Blocking:** Stop simulation until corrected or approved.
+- **Blocking:** Stop the affected calculations until corrected or the missing valid authorization is provided. Approval cannot waive invalid arithmetic, incompatible units or required privacy controls.
 - **Not Tested:** Disclose that validation evidence is unavailable.
 
 Blocking examples include impossible workforce values, unmapped required codes, incompatible units, missing required approvals, or a final result that depends on an unapproved AI assumption. Missing optional financial data, banded dependency estimates, or unavailable independent controls normally produce warnings or indicative-only limitations rather than blocking unrelated scenarios.
