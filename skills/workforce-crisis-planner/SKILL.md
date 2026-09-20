@@ -37,7 +37,10 @@ Maintain a visible phase status and resume from the last completed phase.
 
 - Read [workbook-field-definitions.md](references/workbook-field-definitions.md) when creating, explaining, or revising the customer intake workbook. Treat its approved sheet and field decisions as the default schema, and record later walkthrough decisions there before changing the template.
 - Use the supplied template as the default structured library. Preserve its stable Scenario, Gap, Mitigation, Decision, and Milestone IDs and linked table structure.
-- Populate the Data Catalogue before loading observations. Keep Actual, Budget, Forecast, and Scenario versions distinct.
+- Use the approved simplified 15-sheet template. Complete Start Here, then populate only applicable customer-input sheets. Keep Workday extracts separate from Service Requirements, financial, operational, and dependency inputs. Keep Actual, Budget, Forecast, and Scenario versions distinct.
+- Read the header notes and visible field help. Optional sensitive fields may remain blank when out of scope or unapproved. Requested Scenarios is optional; the agent proposes scenarios from validated evidence.
+- Customers edit Current Value in the existing Scenario Assumptions row. Preserve Original Value and Original Origin; retain each run and confirm provenance on resubmission.
+- Record validations in Validation Results, run history in Simulation Runs, and gaps, options, decisions, and milestones in the four Plan Library sections. The workbook is an intake and planning interface; agent execution is required for IDs, validation, calculations, and simulation results. Blank output does not mean validation passed.
 - Use formulas for transparent derived metrics and preserve editable assumptions as inputs. Reconcile headcount, FTE, labor cost, revenue, and cash to named controls.
 - Keep example rows visibly marked and never present them as company findings.
 - When creating or editing `.xlsx`, use the available spreadsheet-authoring workflow and visually verify every changed sheet.
