@@ -1,0 +1,177 @@
+version: "0.2-draft"
+phase: "2F"
+status: "validated_amendments"
+apply_to: "references/hcm-capability-map.yaml"
+
+capability_layers:
+  functional:
+    - WORKER_DATA
+    - LOCALIZATION
+    - RECRUITING
+    - STAFFING
+    - ONBOARDING
+    - COMPENSATION
+    - BENEFITS
+    - TALENT
+    - SKILLS
+    - LEARNING
+    - SCHEDULING
+    - ABSENCE
+    - TIME_TRACKING
+    - SAFETY
+  experience_channels:
+    - SELF_SERVICE
+    - HR_SERVICE
+  cross_cutting:
+    - SECURITY
+    - BUSINESS_PROCESS
+    - REPORTING_ANALYTICS
+    - INTEGRATIONS
+    - PAYROLL
+
+amendments:
+  WORKER_DATA:
+    add_documented_scope:
+      - worker_skills_and_experience
+      - competencies
+      - certifications
+      - job_history
+      - talent_statements
+    add_touchpoints:
+      - SKILLS
+      - TALENT
+      - LEARNING
+
+  LOCALIZATION:
+    rename_label: "Country, Localization and Regulatory Requirements"
+    add_documented_scope:
+      - country_specific_employment_requirements
+      - localized_reporting
+
+  STAFFING:
+    add_documented_scope:
+      - flexible_work_arrangements
+      - headcount_plans_hcm
+      - hr_partner_hub
+      - ad_hoc_worker_communications
+      - retirees
+    add_routing_cues:
+      - flexible_work_arrangement
+      - headcount_planning
+      - workforce_movement
+      - hr_partner_workspace
+      - worker_communications
+      - retiree_status
+    add_retrieval_topics:
+      assignments:
+        - "International and Domestic Assignments"
+        - "International Assignments Comparison"
+      flexible_work:
+        - "Flexible Work Arrangements"
+      headcount_planning:
+        - "Headcount Plans"
+        - "Headcount Plan Dimensions for HCM"
+      hr_partner:
+        - "HR Partner Hub"
+      communications:
+        - "Ad Hoc Worker Communications"
+      retirees:
+        - "Retirees"
+
+  ONBOARDING:
+    add_documented_scope:
+      - staffing_onboarding
+      - onboarding_dashboard
+      - onboarding_landing_page
+      - form_i9
+      - background_checks
+    add_retrieval_topics:
+      staffing_onboarding:
+        - "Onboarding"
+        - "Onboarding Dashboard"
+        - "Onboarding Landing Page"
+      compliance:
+        - "Form I-9"
+        - "Background Checks"
+
+  BENEFITS:
+    add_documented_scope:
+      - dependents_and_beneficiaries
+      - wellness
+      - regulatory_benefits
+    add_retrieval_topics:
+      regulatory:
+        - "Affordable Care Act"
+        - "COBRA"
+      wellness:
+        - "Workday Wellness"
+      dependents:
+        - "Dependents and Beneficiaries"
+
+  TALENT:
+    add_documented_scope:
+      - mentors_and_connections
+      - talent_matrix_reports
+      - workforce_metrics
+      - talent_insight_apps
+      - professional_profiles
+    add_touchpoints:
+      - REPORTING_ANALYTICS
+    add_retrieval_topics:
+      analytics:
+        - "Workforce Metrics"
+        - "Talent Insight Apps"
+      profiles:
+        - "Professional Profiles"
+      mentoring:
+        - "Mentors and Connections"
+
+  SKILLS:
+    add_documented_scope:
+      - professional_profile_skill_content
+    add_retrieval_topics:
+      profiles:
+        - "Professional Profiles"
+
+  LEARNING:
+    add_documented_scope:
+      - extended_enterprise_learning
+      - cloud_connect_for_learning
+    add_retrieval_topics:
+      external_learners:
+        - "Extended Enterprise Learning"
+      integration:
+        - "Cloud Connect for Learning"
+
+  SELF_SERVICE:
+    rename_label: "HCM Experience and Hubs"
+    layer: "experience_channel"
+    add_documented_scope:
+      - hr_partner_hub
+      - personal_information_hub
+    add_retrieval_topics:
+      hr_partner:
+        - "HR Partner Hub"
+      personal_information:
+        - "Personal Information Hub"
+
+  HR_SERVICE:
+    rename_label: "HR Service and Conversational Experience"
+    layer: "experience_channel"
+
+cross_cutting_source_strategy:
+  REPORTING_ANALYTICS:
+    primary: "Reporting and Analytics Admin Guide"
+    secondary: "HCM Admin Guide functional reporting and workforce metrics sections"
+  INTEGRATIONS:
+    primary: "Integrations Admin Guide"
+    secondary: "HCM Admin Guide functional integration sections"
+  PAYROLL:
+    primary: "Payroll Admin Guide"
+    secondary: "HCM Admin Guide functional touchpoints"
+
+routing_policy_additions:
+  - "Select functional capabilities first."
+  - "Add experience channels only when user interaction, hubs, mobile, collaboration tools, or HR service delivery materially affect the design."
+  - "Add cross-cutting capabilities only when their impact changes configuration, risk, or downstream behavior."
+  - "Do not retrieve HCM hub or Assistant/Everywhere documentation merely because those surfaces can expose an underlying functional capability."
