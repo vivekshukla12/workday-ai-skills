@@ -6,20 +6,26 @@ Development workspace for a token-efficient Workday HCM Solution Architect skill
 
 Translate business and workforce requirements into Workday solution options, configuration guidance, cross-functional impacts, risks, and implementation considerations while retrieving only the minimum documentation required for the question.
 
-## Current development phase
+## Development status
 
-**Phase 2 — HCM Capability Map**
+**Phase 2 — HCM Capability Map: COMPLETE**
 
-Current work covers:
+The frozen Phase 2 baseline consists of:
 
-- HCM capability taxonomy
-- business-to-capability routing
-- cross-cutting domains such as Security, Business Process, Reporting, Integrations, and Payroll
-- targeted documentation retrieval topics
-- token-efficiency rules
-- validation against realistic HCM consulting scenarios
+- `references/hcm-capability-router-v1.yaml` — compact business-to-capability and topic router
+- `references/retrieval-policy-v1.yaml` — progressive retrieval, budget, expansion and stop rules
+- `references/phase-2-routing-tests.md` — routing validation across representative HCM consulting scenarios
+- `references/capability-map-validation.md` — guide completeness review and design decisions
 
-The production `SKILL.md` has intentionally not been created yet. It will be designed after the capability map and routing model are validated.
+Earlier capability-map drafts are retained as development history and are not the preferred runtime routing artifacts.
+
+## Next phase
+
+**Phase 3 — Cross-Module Dependency Graph**
+
+Phase 3 will model material object and configuration dependencies across HCM domains so the future skill can perform controlled impact analysis without retrieving every potentially related module.
+
+The production `SKILL.md` is intentionally not created yet. It will be written after the foundational routing, dependency and workforce-archetype layers are validated.
 
 ## Branch
 
