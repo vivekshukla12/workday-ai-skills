@@ -1,0 +1,4 @@
+name: workday-prism-assistant
+lifecycle: beta
+release_state: prerelease
+recommended_for_general_use: false
