@@ -1,0 +1,138 @@
+version: "1.0"
+status: phase_2_frozen
+objective: Minimize retrieval/context while preserving enough evidence for reliable HCM consulting answers.
+
+principles:
+  - reason_before_retrieval
+  - route_before_search
+  - retrieve_named_topics_not_whole_sections
+  - prefer_authoritative_functional_source
+  - expand_dependencies_only_when_material
+  - suppress_duplicate_evidence
+  - stop_when_evidence_is_sufficient
+
+retrieval_tiers:
+  T0_problem_understanding:
+    retrieve_docs: false
+    output: [question_mode, business_context, explicit_requirements, assumptions, architecture_changing_unknowns]
+  T1_capability_routing:
+    retrieve_docs: false
+    use: [hcm-capability-router-v1]
+    output: [primary_capabilities, conditional_capabilities, cross_cutting_candidates, initial_topics]
+  T2_primary_evidence:
+    retrieve_docs: true
+    defaults:
+      max_primary_capabilities: 4
+      max_topics_per_capability: 2
+      max_passages_per_topic: 2
+    prefer: [setup_considerations, concept_or_reference, connections_and_touchpoints, exact_task_when_steps_requested]
+  T3_dependency_expansion:
+    retrieve_docs: true
+    defaults:
+      max_additional_functional_capabilities: 2
+      max_additional_cross_cutting: 2
+      max_topics_per_added_capability: 1
+    rule: Expand only if the dependency can change the recommendation, create material risk, or answer an explicit cross-module question.
+  T4_specialist_source:
+    retrieve_docs: true
+    rule: Switch when the question becomes primarily a specialist domain.
+    sources:
+      PAYROLL: Payroll Admin Guide
+      INTEGRATIONS: Integrations Admin Guide
+      REPORTING_ANALYTICS: Reporting and Analytics Admin Guide
+      PRISM: Prism Analytics Guide
+
+question_modes:
+  factual_capability:
+    primary_capability_budget: 1
+    initial_topic_budget: 1
+    dependency_expansion: normally_none
+  direct_configuration:
+    primary_capability_budget: 1
+    initial_topic_budget: 2
+    dependency_expansion: only_if_required
+  troubleshooting:
+    primary_capability_budget: 1
+    initial_topic_budget: 2
+    dependency_expansion: symptom_driven
+    prefer: [troubleshooting, security, business_process, eligibility, effective_dating, integration_dependencies]
+  design_decision:
+    primary_capability_budget: 2
+    initial_topic_budget: 3
+    dependency_expansion: material_downstream_only
+  impact_analysis:
+    primary_capability_budget: 2
+    initial_topic_budget: 3
+    dependency_expansion: expected_but_selective
+    prefer: [connections_and_touchpoints, downstream_impacts, security, payroll, integrations]
+  solution_architecture:
+    primary_capability_budget: 4
+    initial_topic_budget: 6
+    dependency_expansion: selective
+
+second_hop:
+  expand_when:
+    - user_explicitly_requests_cross_module_impact
+    - documented_touchpoint_can_change_solution_design
+    - payroll_result_or_pay_calculation_can_change
+    - security_or_business_process_can_block_solution
+    - country_or_regulatory_requirement_can_change_configuration
+    - integration_boundary_changes_system_of_record_or_data_flow
+    - primary_evidence_identifies_material_dependency
+  do_not_expand_when:
+    - dependency_is_only_theoretical
+    - capability_is_merely_visible_in_a_hub_or_assistant
+    - evidence_would_repeat_existing_support
+    - added_module_does_not_change_recommendation_risk_or_next_step
+
+budgets:
+  narrow_question:
+    target_evidence_units: "2-4"
+    soft_context_target: "2K-5K tokens"
+  design_question:
+    target_evidence_units: "4-8"
+    soft_context_target: "4K-8K tokens"
+  architecture_question:
+    target_evidence_units: "6-12"
+    soft_context_target: "6K-12K tokens"
+  comprehensive_review:
+    initial_evidence_units_max: 16
+    expand_only_if: user_requested_exhaustive_analysis_or_evidence_insufficient
+  note: Token ranges are design targets, not billing guarantees.
+
+deduplication:
+  suppress_when:
+    - same_topic_repeats_same_capability_statement
+    - later_passage_adds_no_new_dependency_limitation_or_configuration_detail
+  retain_when:
+    - second_source_resolves_ambiguity
+    - one_source_documents_capability_and_another_material_touchpoint
+    - exact_prerequisites_or_steps_are_required
+
+stop_conditions:
+  stop_when_all:
+    - primary_question_answerable
+    - required_documented_behavior_supported
+    - material_cross_module_impacts_identified
+    - no_unresolved_high_risk_dependency
+    - further_retrieval_unlikely_to_change_recommendation
+  continue_when_any:
+    - evidence_ambiguous_or_conflicting
+    - exact_steps_requested_but_only_overview_evidence_available
+    - payroll_security_regulatory_or_integration_risk_unresolved
+    - recommendation_depends_on_unverified_feature_limitation
+
+clarification_policy:
+  ask_before_deep_retrieval_when:
+    - country_changes_configuration_path
+    - workday_vs_third_party_payroll_changes_architecture
+    - staffing_model_required_for_correct_answer
+    - worker_population_type_changes_eligibility_or_process_design
+    - exact_steps_requested_but_feature_or_object_unclear
+  otherwise: State bounded assumptions and continue.
+
+answer_evidence_labels:
+  - documented_behavior
+  - solution_recommendation
+  - assumption
+  - tenant_validation
