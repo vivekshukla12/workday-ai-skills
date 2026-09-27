@@ -1,0 +1,4 @@
+name: wql-formatter
+lifecycle: stable
+release_state: released
+recommended_for_general_use: true
