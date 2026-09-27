@@ -6,13 +6,29 @@ These skills provide focused instructions and supporting references that help co
 
 ## Available Skills
 
-| Skill | Description |
-| --- | --- |
-| [WQL Formatter](skills/wql-formatter/) | Formats or minifies Workday Query Language queries while preserving their logic and identifying plausible syntax errors. |
-| [Workforce Crisis Planner](skills/workforce-crisis-planner/) | Links workforce and financial data to crisis scenarios, gaps, approved mitigations, and implementation timelines. |
-| [Workday Prism Assistant](skills/workday-prism-assistant/) | Supports Prism Analytics architecture, ingestion, transformations, calculated fields, security, publishing, scheduling, and troubleshooting. |
+| Skill | Description | Lifecycle | Release state |
+| --- | --- | --- | --- |
+| [WQL Formatter](skills/wql-formatter/) | Formats or minifies Workday Query Language queries while preserving their logic and identifying plausible syntax errors. | 🟢 **Stable** | **Released** |
+| [Workday Prism Assistant](skills/workday-prism-assistant/) | Supports Prism Analytics architecture, ingestion, transformations, calculated fields, security, publishing, scheduling, and troubleshooting. | 🟡 **Beta** | **Pre-release** |
+| [Workforce Crisis Planner](skills/workforce-crisis-planner/) | Links workforce and financial data to crisis scenarios, gaps, approved mitigations, and implementation timelines. | 🔵 **Development** | **Unreleased** |
 
 Additional skills may be added under the `skills/` directory.
+
+## Lifecycle and Release Status
+
+Each skill includes a `STATUS.yaml` file that records its current lifecycle and release state.
+
+- **Development** — actively being designed or changed; incomplete behavior and breaking changes are expected.
+- **Beta** — usable for testing and evaluation, but still subject to change and not yet recommended as a stable general release.
+- **Stable** — tested sufficiently for general use and maintained as a released skill.
+
+Release states are:
+
+- **Unreleased** — development work only.
+- **Pre-release** — available for evaluation before stable release.
+- **Released** — approved as a stable general release.
+
+New skills should default to **Development / Unreleased** until they are explicitly promoted.
 
 ## Repository Structure
 
@@ -21,15 +37,18 @@ workday-ai-skills/
 ├── skills/
 │   ├── wql-formatter/
 │   │   ├── SKILL.md
+│   │   ├── STATUS.yaml
 │   │   ├── agents/
 │   │   └── references/
 │   ├── workforce-crisis-planner/
 │   │   ├── SKILL.md
+│   │   ├── STATUS.yaml
 │   │   ├── agents/
 │   │   ├── assets/
 │   │   └── references/
 │   └── workday-prism-assistant/
 │       ├── SKILL.md
+│       ├── STATUS.yaml
 │       ├── agents/
 │       └── references/
 ├── AGENTS.md
