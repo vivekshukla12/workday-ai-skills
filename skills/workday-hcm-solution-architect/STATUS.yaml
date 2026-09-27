@@ -5,9 +5,19 @@ release_stage: unreleased
 branch: feature/hcm-solution-architect
 current_phase: 2
 phase_name: HCM Capability Map
-version: 0.1.0-dev
+current_step: 2G
+current_step_name: Token Efficiency Optimization
+version: 0.2.0-dev
 skill_created: false
+completed_steps:
+  - 2A-capability-map-schema
+  - 2B-top-level-capability-taxonomy
+  - 2C-cross-cutting-capability-model
+  - 2D-foundation-capability-definitions
+  - 2E-initial-retrieval-topic-map
+  - 2F-guide-completeness-validation
 notes: >-
-  Development branch for the HCM Solution Architect skill. Phase 2 is focused on
-  the token-efficient capability and retrieval routing model. No production SKILL.md
-  has been created yet.
+  Phase 2F validation is complete. The validated v0.2 amendments are recorded in
+  references/capability-map-amendments-v0.2.yaml and will be consolidated with
+  retrieval-budget and routing optimizations during Phase 2G. No production
+  SKILL.md has been created yet.
