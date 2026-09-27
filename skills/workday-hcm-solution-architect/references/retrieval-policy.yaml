@@ -1,0 +1,298 @@
+version: "0.1"
+phase: "2G"
+status: "validated_design"
+objective: >-
+  Minimize context and retrieval cost while preserving enough evidence for reliable
+  Workday HCM solution-architecture, configuration, troubleshooting, and impact-analysis answers.
+
+principles:
+  - reason_before_retrieval
+  - route_before_search
+  - retrieve_named_topics_not_product_sections
+  - prefer_authoritative_functional_source
+  - expand_dependencies_only_when_material
+  - suppress_duplicate_evidence
+  - stop_when_evidence_is_sufficient
+  - use_progressive_disclosure_in_answers
+
+retrieval_tiers:
+  T0_problem_understanding:
+    documentation_retrieval: false
+    use:
+      - user_question
+      - conversation_context
+    output:
+      - question_mode
+      - workforce_or_process_context
+      - explicit_requirements
+      - assumptions
+      - architecture_changing_unknowns
+
+  T1_capability_routing:
+    documentation_retrieval: false
+    use:
+      - hcm_capability_map
+      - future_dependency_graph
+      - future_workforce_archetypes
+    output:
+      - primary_capabilities
+      - conditional_capabilities
+      - cross_cutting_candidates
+      - initial_retrieval_topics
+
+  T2_primary_evidence:
+    documentation_retrieval: true
+    rule: >-
+      Retrieve only the highest-value named topics for the selected primary capabilities.
+    defaults:
+      primary_capabilities_max: 4
+      topics_per_primary_capability_max: 2
+      passages_per_topic_max: 2
+    preferred_content:
+      - setup_considerations
+      - concept_or_reference_topic
+      - connections_and_touchpoints
+      - exact_configuration_task_when_procedure_is_requested
+
+  T3_dependency_expansion:
+    documentation_retrieval: true
+    rule: >-
+      Expand only when a second-hop capability can materially change the recommendation,
+      introduce a downstream risk, or answer an explicit cross-module question.
+    defaults:
+      additional_functional_capabilities_max: 2
+      additional_cross_cutting_capabilities_max: 2
+      topics_per_added_capability_max: 1
+
+  T4_authoritative_external_guide:
+    documentation_retrieval: true
+    rule: >-
+      Switch to the dedicated guide when the question becomes primarily Payroll,
+      Integrations, Reporting & Analytics, Prism, or another specialist domain.
+    examples:
+      PAYROLL: "Payroll Admin Guide"
+      INTEGRATIONS: "Integrations Admin Guide"
+      REPORTING_ANALYTICS: "Reporting and Analytics Admin Guide"
+      PRISM: "Prism Analytics Guide"
+
+question_modes:
+  direct_configuration:
+    description: "User asks how to configure a known Workday feature or object."
+    primary_capability_budget: 1
+    initial_topic_budget: 2
+    dependency_expansion: "only_if_required"
+    answer_depth: "procedure_plus_key_impacts"
+
+  troubleshooting:
+    description: "User asks why a configuration or process is not working."
+    primary_capability_budget: 1
+    initial_topic_budget: 2
+    dependency_expansion: "symptom_driven"
+    prefer:
+      - troubleshooting_topics
+      - security
+      - business_process
+      - eligibility
+      - effective_dating
+      - integration_dependencies
+
+  design_decision:
+    description: "User compares design options such as Position vs Job Management."
+    primary_capability_budget: 2
+    initial_topic_budget: 3
+    dependency_expansion: "material_downstream_only"
+    answer_depth: "options_tradeoffs_recommendation"
+
+  impact_analysis:
+    description: "User asks what else a proposed configuration change affects."
+    primary_capability_budget: 2
+    initial_topic_budget: 3
+    dependency_expansion: "expected"
+    prefer:
+      - connections_and_touchpoints
+      - downstream_impacts
+      - security
+      - payroll
+      - integrations
+
+  solution_architecture:
+    description: "User provides a business/workforce problem and asks how Workday should support it."
+    primary_capability_budget: 4
+    initial_topic_budget: 6
+    dependency_expansion: "selective"
+    answer_depth: "architecture_first_then_configuration_direction"
+
+  factual_capability:
+    description: "User asks whether Workday supports a capability."
+    primary_capability_budget: 1
+    initial_topic_budget: 1
+    dependency_expansion: "normally_none"
+    answer_depth: "concise_with_evidence_and_limitations"
+
+routing_confidence:
+  high:
+    signals:
+      - explicit_workday_module
+      - explicit_business_object_or_task
+      - exact_feature_name
+    behavior: "route_directly_to_named_capability"
+
+  medium:
+    signals:
+      - clear_business_requirement
+      - workforce_archetype_match
+      - known_cross_module_pattern
+    behavior: "route_using_capability_map_then_validate_with_primary_evidence"
+
+  low:
+    signals:
+      - ambiguous_business_term
+      - multiple_equally_plausible_capabilities
+      - missing_context_that_changes_architecture
+    behavior: >-
+      Use the smallest plausible capability set. Ask a clarifying question only when the
+      missing information would materially alter the design; otherwise state the assumption.
+
+second_hop_triggers:
+  expand_when:
+    - user_explicitly_asks_for_cross_module_impact
+    - documented_touchpoint_can_change_solution_design
+    - payroll_result_or_pay_calculation_can_change
+    - security_or_business_process_access_can_block_solution
+    - country_or_regulatory_requirement_can_change_configuration
+    - integration_boundary_can_change_system_of_record_or_data_flow
+    - primary_evidence_explicitly_identifies_a_material_dependency
+    - unresolved_conflict_requires_another_authoritative_source
+
+  do_not_expand_when:
+    - dependency_is_only_theoretical
+    - capability_is_merely_visible_in_a_hub_or_assistant
+    - additional_passage_repeats_existing_evidence
+    - added_module_does_not_change_recommendation_risk_or_next_step
+
+source_selection:
+  order:
+    - exact_functional_setup_or_reference_topic
+    - functional_connections_and_touchpoints
+    - dedicated_specialist_guide_if_question_crosses_domain_boundary
+    - broader_background_topic_only_if_required
+
+  avoid:
+    - whole_guide_retrieval
+    - whole_module_retrieval
+    - multiple_near_duplicate_setup_topics
+    - retrieving_every_documented_touchpoint
+    - generic_search_when_exact_topic_name_is_already_known
+
+query_patterns:
+  capability_overview:
+    template: "<capability> setup considerations purpose touchpoints"
+
+  configuration:
+    template: "<exact object or feature> setup steps prerequisites security"
+
+  impact_analysis:
+    template: "<feature or object> connections touchpoints downstream impacts"
+
+  troubleshooting:
+    template: "<feature or task> troubleshooting <symptom> security eligibility business process"
+
+  architecture:
+    template: "<primary capability> <business requirement> setup considerations touchpoints"
+
+  localization:
+    template: "<country> <feature> localization regulatory reporting"
+
+  specialist_handoff:
+    template: "<specialist domain> <HCM object/process> integration or downstream behavior"
+
+retrieval_budget:
+  unit_definition: >-
+    One retrieval unit is one focused documentation passage or one compact result that contains
+    enough context to support a specific claim or design decision.
+
+  narrow_question:
+    target_units: "2-4"
+    soft_context_target: "approximately 2K-5K tokens"
+
+  design_question:
+    target_units: "4-8"
+    soft_context_target: "approximately 4K-8K tokens"
+
+  architecture_question:
+    target_units: "6-12"
+    soft_context_target: "approximately 6K-12K tokens"
+
+  explicit_comprehensive_review:
+    target_units: "up to 16 initially"
+    rule: "expand beyond this only when the user explicitly requests exhaustive analysis or evidence remains insufficient"
+
+  note: >-
+    Token figures are soft design targets, not billing guarantees. Passage count and evidence sufficiency
+    are the primary controls because runtime chunk sizes can vary.
+
+deduplication:
+  suppress_when:
+    - same_topic_repeats_same_capability_statement
+    - later_passage_adds_no_new_dependency_limitation_or_configuration_detail
+    - setup_and_reference_topics_repeat_identical_background
+  keep_when:
+    - second_source_resolves_ambiguity
+    - one_passage_documents_capability_and_another_documents_material_touchpoint
+    - procedure_requires_exact_prerequisites_or_steps
+
+stop_conditions:
+  stop_retrieval_when_all_true:
+    - primary_question_is_answerable
+    - required_documented_behavior_is_supported
+    - material_cross_module_impacts_are_identified
+    - no_unresolved_high_risk_dependency_remains
+    - additional_retrieval_is_unlikely_to_change_the_recommendation
+
+  continue_retrieval_when_any_true:
+    - evidence_is_ambiguous_or_conflicting
+    - user_requested_exact_configuration_steps_but_only_overview_evidence_is_available
+    - payroll_security_regulatory_or_integration_risk_remains_unresolved
+    - recommendation_depends_on_a_feature_limitation_not_yet_verified
+
+answer_efficiency:
+  architecture_questions:
+    order:
+      - requirement_understanding
+      - recommended_architecture
+      - relevant_capabilities_and_interactions
+      - key_design_decisions
+      - risks_and_tenant_validation
+      - configuration_detail_only_when_requested_or_decision_critical
+
+  narrow_questions:
+    rule: "answer_the_narrow_question_first_and_do_not_expand_into_architecture_unless_material"
+
+  evidence_labels:
+    - documented_behavior
+    - solution_recommendation
+    - assumption
+    - tenant_validation
+
+clarification_policy:
+  ask_before_deep_retrieval_when:
+    - country_changes_configuration_path
+    - workday_vs_third_party_payroll_changes_architecture
+    - staffing_model_is_required_to_answer_correctly
+    - worker_population_type_changes_eligibility_or_process_design
+    - user_requests_exact_steps_but_feature_or_object_is_unclear
+
+  otherwise:
+    rule: "state_reasonable_assumptions_and_continue_with_a_bounded_answer"
+
+validation_scenarios_for_next_phase:
+  - large_blue_collar_population
+  - high_volume_seasonal_hiring
+  - position_vs_job_management
+  - factory_overtime_and_shift_premiums
+  - multiple_jobs_with_time_absence_and_payroll
+  - germany_collective_agreement_population
+  - onboarding_with_mandatory_training
+  - worker_location_change_impact_analysis
+  - external_time_clock_to_third_party_payroll
+  - frontline_workers_without_regular_desktop_access
