@@ -1,0 +1,212 @@
+# Runtime-oriented HCM capability router.
+# This is the Phase 2 frozen routing baseline. It is intentionally compact.
+version: "1.0"
+status: phase_2_frozen
+
+layers:
+  functional:
+    - WORKER_DATA
+    - LOCALIZATION
+    - RECRUITING
+    - STAFFING
+    - ONBOARDING
+    - COMPENSATION
+    - BENEFITS
+    - TALENT
+    - SKILLS
+    - LEARNING
+    - SCHEDULING
+    - ABSENCE
+    - TIME_TRACKING
+    - SAFETY
+  experience_channels:
+    - SELF_SERVICE
+    - HR_SERVICE
+  cross_cutting:
+    - SECURITY
+    - BUSINESS_PROCESS
+    - REPORTING_ANALYTICS
+    - INTEGRATIONS
+    - PAYROLL
+
+capabilities:
+  WORKER_DATA:
+    cues: [personal_information, contact_information, ids, worker_documents, worker_profile, country_specific_person_data]
+    topics:
+      default: [Worker Information, Personal Information]
+      country: [Personal Information by Country, Maintain Localization Settings]
+      configurable: [Configurable Fields for Personal Information]
+    touchpoints: [LOCALIZATION, SECURITY, REPORTING_ANALYTICS, INTEGRATIONS, PAYROLL, SKILLS, TALENT, LEARNING]
+
+  LOCALIZATION:
+    cues: [country_specific_requirement, local_compliance, statutory_reporting, localized_worker_data, global_template_local_variance]
+    topics:
+      default: [Country-Specific Information and Reporting, Maintain Localization Settings]
+      regulatory: [Locally Required Reporting, Establishments]
+    touchpoints: [WORKER_DATA, STAFFING, PAYROLL, SECURITY, REPORTING_ANALYTICS, INTEGRATIONS]
+
+  RECRUITING:
+    cues: [candidate_pipeline, high_volume_hiring, seasonal_hiring, job_requisition, evergreen_requisition, candidate_screening, offer]
+    topics:
+      default: [Setup Considerations: Recruiting, Recruiting Setup]
+      high_volume: [Evergreen Requisitions, Autocomplete Staffing Events, Job Requisition for Multiple Existing Positions]
+      handoff: [Set Up Recruiting to Staffing Field Defaults, Autocomplete Staffing Events]
+      offers: [Setup Considerations: Offers, Offer Business Process]
+    touchpoints: [STAFFING, COMPENSATION, ONBOARDING, SKILLS, INTEGRATIONS, BUSINESS_PROCESS, SECURITY]
+
+  STAFFING:
+    cues: [position_vs_job_management, job_architecture, worker_type, contingent_worker, hire, termination, change_job, multiple_jobs, collective_agreement, organization_assignment, international_assignment, flexible_work, headcount_planning, retiree]
+    topics:
+      default: [Setup Considerations: Staffing, Staffing Models]
+      architecture: [Job Catalog, Staffing Model Comparisons, Maintain Jobs, Maintain Positions]
+      population: [Employee Types, Time Types and Subtypes, Contingent Worker Types, Work Shifts]
+      lifecycle: [Hire and Terminate, Setup Considerations: Job Changes, Organization Assignments]
+      agreements: [Setup Considerations: Collective Agreements, Employment Agreements, Employee Contracts]
+      multiple_jobs: [Impacts of Primary Position Designation, Impacts of Enabling Multiple Jobs]
+      assignments: [International and Domestic Assignments, International Assignments Comparison]
+      workforce_ops: [Flexible Work Arrangements, HR Partner Hub, Ad Hoc Worker Communications, Retirees]
+      planning: [Headcount Plans, Headcount Plan Dimensions for HCM]
+    touchpoints: [RECRUITING, COMPENSATION, ABSENCE, BENEFITS, TIME_TRACKING, SCHEDULING, PAYROLL, TALENT, SECURITY, BUSINESS_PROCESS]
+
+  ONBOARDING:
+    cues: [preboarding, day_one, onboarding_plan, new_hire_tasks, manager_contribution, required_training]
+    topics:
+      default: [Setup Considerations: Onboarding Plans, Concept: Onboarding Plans]
+      planner: [Set Up Onboarding Planner, Onboarding Plan Audiences]
+      learning: [Required Learning for You, Pre-Hire Access to Learning Content]
+      compliance: [Form I-9, Background Checks]
+    touchpoints: [RECRUITING, STAFFING, LEARNING, SELF_SERVICE, SECURITY, BUSINESS_PROCESS]
+
+  COMPENSATION:
+    cues: [salary, hourly_pay, grade, grade_step, allowance, bonus, minimum_wage, compensation_eligibility, pay_range]
+    topics:
+      default: [Compensation Eligibility Rules, Manage Compensation]
+      hourly: [Hourly Plans, Minimum Wage in Compensation]
+      structured: [Grades and Grade Steps, Allowance Plans]
+      recruiting: [Compensation in Recruiting, Offer]
+    touchpoints: [STAFFING, RECRUITING, BENEFITS, PAYROLL, SELF_SERVICE, SECURITY, BUSINESS_PROCESS]
+
+  BENEFITS:
+    cues: [benefit_eligibility, health_insurance, retirement, benefit_enrollment, deductions, life_event, open_enrollment]
+    topics:
+      default: [Steps: Set Up Benefits, Create Benefit Eligibility Rules]
+      enrollment: [Enrollment Events and Rules, Open Enrollment]
+      multiple_jobs: [Set Up Multiple Jobs for Benefit Eligibility]
+      payroll: [Setup Considerations: Payroll and Benefits]
+      regulatory: [Affordable Care Act, COBRA]
+    touchpoints: [STAFFING, COMPENSATION, ABSENCE, PAYROLL, SELF_SERVICE, INTEGRATIONS, SECURITY]
+
+  TALENT:
+    cues: [performance_management, goals, succession, career_development, feedback, check_ins, talent_review, internal_mobility]
+    topics:
+      default: [Talent, Employee Reviews]
+      performance: [Performance Reviews, Goals, Check-Ins]
+      career: [Career Hub, Talent Marketplace]
+      succession: [Setup Considerations: Succession]
+      analytics: [Workforce Metrics, Talent Insight Apps]
+      profiles: [Professional Profiles]
+    touchpoints: [SKILLS, LEARNING, RECRUITING, STAFFING, SELF_SERVICE, SECURITY, REPORTING_ANALYTICS]
+
+  SKILLS:
+    cues: [workforce_skills, job_skill_requirements, skill_gap, competency_model, skill_matching, qualification_matching]
+    topics:
+      default: [Skills, Skills Cloud]
+      architecture: [Skills and Competencies Comparison]
+      matching: [Skills Fit Analysis, Skill Profiles]
+      profiles: [Professional Profiles]
+    touchpoints: [TALENT, LEARNING, RECRUITING, STAFFING, WORKER_DATA]
+
+  LEARNING:
+    cues: [mandatory_training, compliance_training, certification, course_assignment, onboarding_training, learning_attendance, external_learners]
+    topics:
+      default: [Setup Considerations: Learning, Learning Content]
+      mandatory: [Learning Campaigns, Learning Certifications, Learning Assignments]
+      onboarding: [Pre-Hire Access to Learning Content, Required Learning for You]
+      external: [Extended Enterprise Learning, Cloud Connect for Learning]
+    touchpoints: [TALENT, SKILLS, ABSENCE, ONBOARDING, STAFFING, INTEGRATIONS]
+
+  SCHEDULING:
+    cues: [shift_work, rotating_shift, worker_availability, shift_swap, open_shift, labor_demand, frontline_schedule]
+    topics:
+      default: [Set Up Workday Scheduling and Labor Optimization, Scheduling Organizations]
+      shifts: [Schedule Generation Settings, Shift Swapping and Bidding]
+      availability: [Change a Worker's Availability]
+      time: [Scheduled vs. Actuals, Schedule Tags]
+    touchpoints: [STAFFING, TIME_TRACKING, ABSENCE, SELF_SERVICE, REPORTING_ANALYTICS]
+
+  ABSENCE:
+    cues: [vacation, sick_leave, statutory_leave, leave_of_absence, accrual, time_off_balance, absence_eligibility]
+    topics:
+      default: [Setup Considerations: Absence Management]
+      time_off: [Setup Considerations: Time Off, Time Off Plans]
+      leave: [Setup Considerations: Leave of Absence, Leave Impacts]
+      payroll: [Time Off Calculations for Payroll, Payroll and Absence]
+    touchpoints: [STAFFING, TIME_TRACKING, SCHEDULING, PAYROLL, BENEFITS, TALENT, LEARNING]
+
+  TIME_TRACKING:
+    cues: [hourly_worker, blue_collar_worker, clock_in_out, time_clock, overtime, shift_premium, meal_break, attendance, timesheet, high_volume_time]
+    topics:
+      default: [Time Tracking Basics, Worker Eligibility for Time Tracking]
+      clocking: [Time Kiosk, Manage Time Clock Events]
+      mobile: [Time Tracking on Mobile, Geofences for Mobile Time Entry]
+      overtime: [Time Calculations, Standard Overtime Calculations, Shift Differential Calculations]
+      compliance: [Meal and Break Validations, Time Attestations, Time Entry Validations]
+      payroll: [Time Tracking, Payroll, and Absence, How Payroll Processes Calculated Time]
+      third_party_clock: [Concept: Importing Time Clock Events, Concept: Time Clock Events]
+      third_party_payroll: [Concept: Exporting Time Blocks, Get Calculated Time Blocks]
+    touchpoints: [STAFFING, SCHEDULING, ABSENCE, PAYROLL, SELF_SERVICE, REPORTING_ANALYTICS, SECURITY, INTEGRATIONS]
+
+  SAFETY:
+    cues: [workplace_safety, occupational_incident, factory_incident, injury_reporting, safety_investigation, location_specific_safety]
+    topics:
+      default: [Set Up Safety Incident Tracking, Safety Incident Reports]
+      security: [Safety Incident Security]
+    touchpoints: [STAFFING, LOCALIZATION, SECURITY, BUSINESS_PROCESS, REPORTING_ANALYTICS, ABSENCE]
+    caution: Safety Incident Tracking does not automatically coordinate with Leave of Absence.
+
+  SELF_SERVICE:
+    layer: experience_channel
+    cues: [employee_experience, manager_experience, frontline_access, mobile_access, manager_approval_experience, limited_desktop_access]
+    topics:
+      default: [Set Up Employee Self-Service, Set Up Manager Self-Service]
+      managers: [Manager Insights Hub]
+      frontline: [Time Management Hub, Time Tracking on Mobile, Absence for Mobile]
+      hr_partner: [HR Partner Hub]
+      personal_info: [Personal Information Hub]
+    touchpoints: [WORKER_DATA, STAFFING, COMPENSATION, BENEFITS, TALENT, ABSENCE, TIME_TRACKING, SCHEDULING, SECURITY]
+
+  HR_SERVICE:
+    layer: experience_channel
+    cues: [hr_case_management, employee_hr_questions, knowledge_article, conversational_hr_access, microsoft_teams, slack, employee_help]
+    topics:
+      default: [Setup Considerations: Workday Assistant, Concept: Workday Help]
+      cases: [Case Management]
+      knowledge: [Knowledge Management]
+      collaboration: [Workday Everywhere, Workday Everywhere Notifications]
+    touchpoints: [SELF_SERVICE, TIME_TRACKING, ABSENCE, RECRUITING, STAFFING, TALENT, LEARNING, BENEFITS, SECURITY]
+
+cross_cutting:
+  SECURITY:
+    activate_when: [access_or_visibility, self_service, country_segmented_data, sensitive_worker_data, contextual_security]
+  BUSINESS_PROCESS:
+    activate_when: [approval_routing, hire_or_change_job, recruiting_flow, absence_request, time_approval, compensation_event, safety_workflow]
+  REPORTING_ANALYTICS:
+    activate_when: [audit, dashboard, compliance_reporting, workforce_metrics, configuration_validation]
+    primary_source: Reporting and Analytics Admin Guide
+  INTEGRATIONS:
+    activate_when: [external_system, mass_data_load, payroll_interface, time_clock_integration, benefits_provider, recruiting_provider, learning_provider]
+    primary_source: Integrations Admin Guide
+  PAYROLL:
+    activate_when: [hourly_pay, overtime, allowance, pay_group, period_schedule, leave_pay, benefit_deduction, staffing_change]
+    primary_source: Payroll Admin Guide
+
+routing_rules:
+  - Select functional capabilities before experience channels or cross-cutting domains.
+  - Start with at most four primary functional capabilities for solution-architecture questions.
+  - Add experience channels only when user interaction, hubs, mobile, collaboration, or service delivery materially affects the design.
+  - Add cross-cutting domains only when they change configuration, downstream behavior, risk, or source authority.
+  - Retrieve named topics rather than whole product sections.
+  - Expand second-hop dependencies only when they can change the recommendation or resolve a material risk.
+  - Do not treat routing cues as official Workday terminology.
+  - Do not infer country law or regulatory requirements without supporting documentation.
+  - Switch to the dedicated Payroll, Integrations, or Reporting guide when specialist implementation detail becomes primary.
