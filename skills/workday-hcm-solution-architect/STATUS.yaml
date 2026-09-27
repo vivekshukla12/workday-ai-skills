@@ -3,21 +3,42 @@ slug: workday-hcm-solution-architect
 status: development
 release_stage: unreleased
 branch: feature/hcm-solution-architect
-current_phase: 2
-phase_name: HCM Capability Map
-current_step: 2G
-current_step_name: Token Efficiency Optimization
 version: 0.2.0-dev
 skill_created: false
+
+current_phase: 2
+phase_name: HCM Capability Map
+phase_status: complete
+current_step: 2I
+current_step_name: Phase 2 Frozen
+
 completed_steps:
   - 2A-capability-map-schema
   - 2B-top-level-capability-taxonomy
   - 2C-cross-cutting-capability-model
   - 2D-foundation-capability-definitions
-  - 2E-initial-retrieval-topic-map
+  - 2E-retrieval-topic-map
   - 2F-guide-completeness-validation
+  - 2G-token-efficiency-optimization
+  - 2H-routing-scenario-testing
+  - 2I-review-and-freeze-v1
+
+phase_2_baseline:
+  capability_router: references/hcm-capability-router-v1.yaml
+  retrieval_policy: references/retrieval-policy-v1.yaml
+  routing_tests: references/phase-2-routing-tests.md
+  validation_notes: references/capability-map-validation.md
+  development_history:
+    - references/hcm-capability-map.yaml
+    - references/capability-map-amendments-v0.2.yaml
+
+next_phase:
+  number: 3
+  name: Cross-Module Dependency Graph
+  status: not_started
+
 notes: >-
-  Phase 2F validation is complete. The validated v0.2 amendments are recorded in
-  references/capability-map-amendments-v0.2.yaml and will be consolidated with
-  retrieval-budget and routing optimizations during Phase 2G. No production
-  SKILL.md has been created yet.
+  Phase 2 is complete and frozen as the routing baseline. The runtime-oriented v1 router
+  and v1 retrieval policy replace the earlier draft artifacts for future development.
+  Earlier capability-map files remain as development history. No production SKILL.md
+  has been created yet.
