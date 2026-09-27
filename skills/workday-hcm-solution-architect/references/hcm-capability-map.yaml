@@ -1,0 +1,1004 @@
+# Workday HCM Solution Architect - Capability Map
+# Phase 2 working artifact (NOT the skill itself)
+# Version: 0.1
+# Basis: Workday Human Capital Management Product Summary, Aug 6 2026
+#
+# Design convention:
+# - documented_scope / key_topics / documented_touchpoints: derived from the supplied Workday HCM guide.
+# - routing_cues: skill-design inference used to recognize business questions; these are NOT official Workday classifications.
+# - retrieval_topics: narrow documentation targets for later retrieval; they are not intended to preload guide content.
+
+metadata:
+  artifact: hcm_capability_map
+  version: "0.1"
+  phase: 2
+  status: working_draft
+  objective: >-
+    Route business and consulting questions to the smallest relevant set of Workday HCM
+    capabilities before retrieving detailed documentation.
+  token_strategy:
+    - classify_business_problem_before_document_retrieval
+    - activate_only_relevant_capabilities
+    - expand_cross_module_touchpoints_only_when_material
+    - retrieve_specific_topics_not_entire_sections
+    - stop_retrieval_when_sufficient_evidence_exists
+
+capabilities:
+
+  WORKER_DATA:
+    label: Worker and Personal Data
+    documented_scope:
+      - personal_information
+      - configurable_personal_information_fields
+      - names
+      - ids
+      - contact_information
+      - addresses
+      - worker_documents
+      - worker_photos
+      - former_worker_data
+      - worker_experience
+    routing_cues:
+      - worker_master_data
+      - employee_personal_information
+      - contact_information
+      - national_or_government_ids
+      - worker_documents
+      - worker_profile_data
+      - country_specific_person_data
+    key_topics:
+      - Personal Information
+      - Configurable Fields for Personal Information
+      - Names
+      - IDs
+      - Contact Information
+      - Addresses
+      - Worker Documents
+      - Former Workers
+    documented_touchpoints:
+      - LOCALIZATION
+      - SECURITY
+      - REPORTING_ANALYTICS
+      - INTEGRATIONS
+      - PAYROLL
+    retrieval_topics:
+      default:
+        - "Worker Information"
+        - "Personal Information"
+      country_specific:
+        - "Personal Information by Country"
+        - "Maintain Localization Settings"
+      configurable_fields:
+        - "Configurable Fields for Personal Information"
+      integration_impact:
+        - "Names"
+        - "Contact Information"
+        - "IDs"
+
+  LOCALIZATION:
+    label: Country and Local Requirements
+    documented_scope:
+      - localized_personal_information
+      - country_specific_fields_and_values
+      - country_reporting_requirements
+      - establishments
+      - country_name_components
+      - country_address_components
+      - local_regulatory_reporting
+    routing_cues:
+      - country_specific_requirement
+      - local_compliance
+      - localized_worker_data
+      - statutory_reporting
+      - country_specific_configuration
+      - global_template_with_local_variance
+    key_topics:
+      - Country-Specific Information and Reporting
+      - Locally Required Information
+      - Maintain Localization Settings
+      - Maintain Name Components by Country
+      - France Reporting Requirements
+      - United States Reporting Requirements
+      - China Employment Requirements
+    documented_touchpoints:
+      - WORKER_DATA
+      - STAFFING
+      - PAYROLL
+      - SECURITY
+      - REPORTING_ANALYTICS
+      - INTEGRATIONS
+    retrieval_topics:
+      default:
+        - "Country-Specific Information and Reporting"
+        - "Maintain Localization Settings"
+      personal_data:
+        - "Personal Information by Country"
+        - "Personal Information Localizations"
+      regulatory:
+        - "Locally Required Reporting"
+        - "Establishments"
+
+  RECRUITING:
+    label: Recruiting
+    documented_scope:
+      - recruiting_setup
+      - job_requisitions
+      - evergreen_requisitions
+      - candidates
+      - career_sites
+      - job_postings
+      - job_applications
+      - questionnaires
+      - assessments
+      - interviews
+      - offers
+    routing_cues:
+      - candidate_pipeline
+      - high_volume_hiring
+      - seasonal_hiring
+      - retail_hiring
+      - job_requisition
+      - candidate_screening
+      - career_site
+      - offer_process
+    key_topics:
+      - Recruiting Setup
+      - Job Requisitions for Recruiting
+      - Evergreen Requisitions
+      - Candidates
+      - Job Applications
+      - Interviews
+      - Offers
+      - Career Sites
+    documented_touchpoints:
+      - STAFFING
+      - COMPENSATION
+      - ONBOARDING
+      - SKILLS
+      - INTEGRATIONS
+      - BUSINESS_PROCESS
+      - SECURITY
+    retrieval_topics:
+      default:
+        - "Setup Considerations: Recruiting"
+        - "Recruiting Setup"
+      high_volume:
+        - "Evergreen Requisitions"
+        - "Autocomplete Staffing Events"
+      requisitions:
+        - "Job Requisitions for Recruiting"
+      hire_handoff:
+        - "Set Up Recruiting to Staffing Field Defaults"
+        - "Autocomplete Staffing Events"
+      offers:
+        - "Setup Considerations: Offers"
+        - "Offer Business Process"
+
+  STAFFING:
+    label: Staffing and Job Architecture
+    documented_scope:
+      - job_architecture
+      - staffing_models
+      - jobs
+      - positions
+      - hiring_restrictions
+      - employee_types
+      - contingent_worker_types
+      - time_types
+      - work_shifts
+      - hire_and_terminate
+      - change_job
+      - multiple_jobs
+      - organization_assignments
+      - employment_agreements
+      - collective_agreements
+      - international_assignments
+    routing_cues:
+      - position_vs_job_management
+      - job_architecture
+      - worker_type
+      - contingent_worker
+      - hire_or_termination
+      - worker_movement
+      - multiple_jobs
+      - collective_agreement
+      - organization_assignment
+      - high_volume_workforce_structure
+    key_topics:
+      - Setup Considerations: Staffing
+      - Basic Staffing Information
+      - Job Catalog
+      - Staffing Models
+      - Maintain Jobs
+      - Maintain Positions
+      - Hire and Terminate
+      - Contingent Worker Staffing
+      - Change Job
+      - Multiple Jobs
+      - Organization Assignments
+      - Contracts and Agreements
+    documented_touchpoints:
+      - RECRUITING
+      - COMPENSATION
+      - ABSENCE
+      - BENEFITS
+      - TIME_TRACKING
+      - SCHEDULING
+      - PAYROLL
+      - TALENT
+      - SECURITY
+      - BUSINESS_PROCESS
+    retrieval_topics:
+      default:
+        - "Setup Considerations: Staffing"
+        - "Staffing Models"
+      architecture:
+        - "Job Catalog"
+        - "Staffing Model Comparisons"
+        - "Maintain Jobs"
+        - "Maintain Positions"
+      worker_population:
+        - "Employee Types"
+        - "Time Types and Subtypes"
+        - "Contingent Worker Types"
+        - "Work Shifts"
+      lifecycle:
+        - "Hire and Terminate"
+        - "Change Job"
+        - "Organization Assignments"
+      agreements:
+        - "Collective Agreements and Unions"
+        - "Employment Agreements"
+        - "Employee Contracts"
+
+  ONBOARDING:
+    label: Onboarding
+    documented_scope:
+      - onboarding_plans
+      - onboarding_planner
+      - onboarding_content
+      - onboarding_audiences
+      - preboarding
+      - manager_contributions
+      - onboarding_notifications
+      - onboarding_dashboard_transition
+    routing_cues:
+      - new_hire_experience
+      - preboarding
+      - day_one_readiness
+      - onboarding_tasks
+      - onboarding_content
+      - manager_onboarding_actions
+      - required_training_for_new_hires
+    key_topics:
+      - Setup Considerations: Onboarding Plans
+      - Set Up Onboarding Planner
+      - Manager Contribution to Onboarding Plans
+      - Concept: Onboarding Plans
+      - Onboarding Dashboard
+      - Onboarding Landing Page
+    documented_touchpoints:
+      - RECRUITING
+      - STAFFING
+      - LEARNING
+      - SELF_SERVICE
+      - SECURITY
+      - BUSINESS_PROCESS
+    retrieval_topics:
+      default:
+        - "Setup Considerations: Onboarding Plans"
+        - "Concept: Onboarding Plans"
+      training:
+        - "Required Learning for You"
+        - "Pre-Hire Access to Learning"
+      personalization:
+        - "Manager Contribution to Onboarding Plans"
+        - "Onboarding Plan Audiences"
+
+  COMPENSATION:
+    label: Compensation
+    documented_scope:
+      - compensation_elements
+      - eligibility_rules
+      - grades_and_grade_steps
+      - salary_plans
+      - hourly_plans
+      - allowance_plans
+      - bonus_plans
+      - one_time_payments
+      - compensation_basis
+      - compensation_reviews
+      - severance
+    routing_cues:
+      - salary
+      - hourly_pay
+      - pay_grade
+      - grade_step
+      - allowance
+      - bonus
+      - minimum_wage
+      - compensation_eligibility
+      - compensation_change
+      - pay_range
+    key_topics:
+      - Compensation Components
+      - Compensation Eligibility Rules
+      - Grades and Grade Steps
+      - Salary Plans
+      - Hourly Plans
+      - Allowance Plans
+      - Bonus Plans
+      - One-Time Payment Plans
+      - Compensation Basis
+    documented_touchpoints:
+      - STAFFING
+      - RECRUITING
+      - BENEFITS
+      - PAYROLL
+      - SELF_SERVICE
+      - SECURITY
+      - BUSINESS_PROCESS
+    retrieval_topics:
+      default:
+        - "Compensation Eligibility Rules"
+        - "Manage Compensation"
+      hourly:
+        - "Hourly Plans"
+        - "Minimum Wage in Compensation"
+      structured_pay:
+        - "Grades and Grade Steps"
+        - "Allowance Plans"
+      recruiting:
+        - "Compensation in Recruiting"
+        - "Offer"
+
+  BENEFITS:
+    label: Benefits
+    documented_scope:
+      - benefit_groups
+      - benefit_eligibility
+      - benefit_plans
+      - health_care_plans
+      - insurance_plans
+      - retirement_savings_plans
+      - enrollment_events
+      - open_enrollment
+      - multiple_jobs_for_benefits
+      - payroll_and_benefits
+    routing_cues:
+      - worker_benefit_eligibility
+      - health_insurance
+      - retirement_plan
+      - benefit_enrollment
+      - benefit_deductions
+      - life_event
+      - open_enrollment
+    key_topics:
+      - Set Up Benefits
+      - Create Benefit Eligibility Rules
+      - Set Up Employee Benefit Plans
+      - Enrollment Events and Rules
+      - Open Enrollment
+      - Multiple Jobs
+      - Payroll and Benefits
+    documented_touchpoints:
+      - STAFFING
+      - COMPENSATION
+      - ABSENCE
+      - PAYROLL
+      - SELF_SERVICE
+      - INTEGRATIONS
+      - SECURITY
+    retrieval_topics:
+      default:
+        - "Steps: Set Up Benefits"
+        - "Create Benefit Eligibility Rules"
+      payroll:
+        - "Setup Considerations: Payroll and Benefits"
+      enrollment:
+        - "Enrollment Events and Rules"
+        - "Open Enrollment"
+      multiple_jobs:
+        - "Set Up Multiple Jobs for Benefit Eligibility"
+
+  TALENT:
+    label: Talent and Performance
+    documented_scope:
+      - goals
+      - development_items
+      - career_interests
+      - career_hub
+      - talent_marketplace
+      - career_profile
+      - talent_reviews
+      - employee_reviews
+      - performance_reviews
+      - calibration
+      - feedback
+      - check_ins
+      - succession
+      - talent_pools
+    routing_cues:
+      - performance_management
+      - employee_goals
+      - succession_planning
+      - career_development
+      - feedback
+      - check_ins
+      - talent_review
+      - internal_mobility
+    key_topics:
+      - Goals
+      - Development Items
+      - Career Hub
+      - Talent Marketplace
+      - Employee Reviews
+      - Performance Reviews
+      - Feedback
+      - Check-Ins
+      - Succession
+      - Talent Pools
+    documented_touchpoints:
+      - SKILLS
+      - LEARNING
+      - RECRUITING
+      - STAFFING
+      - SELF_SERVICE
+      - SECURITY
+    retrieval_topics:
+      default:
+        - "Talent"
+        - "Employee Reviews"
+      career:
+        - "Career Hub"
+        - "Talent Marketplace"
+      succession:
+        - "Setup Considerations: Succession"
+      performance:
+        - "Performance Reviews"
+        - "Goals"
+        - "Check-Ins"
+
+  SKILLS:
+    label: Skills and Skills Cloud
+    documented_scope:
+      - skills
+      - competencies
+      - skill_profiles
+      - skills_fit_analysis
+      - critical_skills
+      - skills_cloud
+      - skill_endorsements
+      - skill_levels
+      - skill_assessments
+      - skills_verification
+    routing_cues:
+      - workforce_skills
+      - job_skill_requirements
+      - skill_gap
+      - competency_model
+      - skill_matching
+      - qualification_matching
+      - skills_based_talent
+    key_topics:
+      - Skills
+      - Skills and Competencies Comparison
+      - Skills Cloud
+      - Skill Profiles
+      - Skills Fit Analysis
+      - Critical Skills
+      - Skill Assessments
+    documented_touchpoints:
+      - TALENT
+      - LEARNING
+      - RECRUITING
+      - STAFFING
+      - WORKER_DATA
+    retrieval_topics:
+      default:
+        - "Skills"
+        - "Skills Cloud"
+      architecture:
+        - "Skills and Competencies Comparison"
+      matching:
+        - "Skills Fit Analysis"
+        - "Skill Profiles"
+
+  LEARNING:
+    label: Learning
+    documented_scope:
+      - learning_setup
+      - learning_security
+      - learning_content
+      - learning_campaigns
+      - learning_certifications
+      - enrollments
+      - prerequisites
+      - attendance
+      - external_content
+      - prehire_learning
+    routing_cues:
+      - mandatory_training
+      - compliance_training
+      - certification
+      - course_assignment
+      - onboarding_training
+      - instructor_led_training
+      - learning_attendance
+    key_topics:
+      - Setup Considerations: Learning
+      - Learning Security
+      - Learning Content
+      - Learning Campaigns
+      - Learning Certifications
+      - Learning Enrollments
+      - Pre-Hire Access to Learning
+    documented_touchpoints:
+      - TALENT
+      - SKILLS
+      - ABSENCE
+      - ONBOARDING
+      - STAFFING
+      - INTEGRATIONS
+    retrieval_topics:
+      default:
+        - "Setup Considerations: Learning"
+        - "Learning Content"
+      mandatory_training:
+        - "Learning Campaigns"
+        - "Learning Certifications"
+        - "Learning Assignments"
+      onboarding:
+        - "Pre-Hire Access to Learning"
+        - "Onboarding"
+
+  SCHEDULING:
+    label: Workday Scheduling
+    documented_scope:
+      - centralized_scheduling
+      - scheduling_organizations
+      - working_hours
+      - schedule_generation
+      - validations
+      - scheduling_rules
+      - worker_availability
+      - shift_change_notifications
+      - multiple_shifts_per_day
+      - schedule_tags
+      - open_shift_bidding
+      - shift_swapping
+      - labor_demand_forecasting
+    routing_cues:
+      - shift_work
+      - rotating_shift
+      - worker_availability
+      - shift_swap
+      - open_shift
+      - labor_demand
+      - schedule_generation
+      - frontline_schedule
+    key_topics:
+      - Scheduling Basics and Tenant Setup
+      - Scheduling Organizations
+      - Schedule Generation Settings
+      - Validations
+      - Rules
+      - Schedule Tags
+      - Shift Swapping and Bidding
+      - Labor Demand Forecasting
+    documented_touchpoints:
+      - STAFFING
+      - TIME_TRACKING
+      - ABSENCE
+      - SELF_SERVICE
+      - REPORTING_ANALYTICS
+    retrieval_topics:
+      default:
+        - "Set Up Workday Scheduling and Labor Optimization"
+        - "Scheduling Organizations"
+      shifts:
+        - "Schedule Generation Settings"
+        - "Shift Swapping and Bidding"
+      availability:
+        - "Change a Worker's Availability"
+      integration_with_time:
+        - "Scheduled vs. Actuals"
+        - "Schedule Tags"
+
+  ABSENCE:
+    label: Absence
+    documented_scope:
+      - time_off
+      - accruals
+      - period_schedules
+      - balances
+      - time_off_requests
+      - leave_of_absence
+      - absence_cases
+      - absence_occurrences
+      - absence_calculations
+      - absence_eligibility
+    routing_cues:
+      - vacation
+      - sick_leave
+      - statutory_leave
+      - leave_of_absence
+      - accrual
+      - time_off_balance
+      - absence_eligibility
+      - absence_calculation
+    key_topics:
+      - Setup Considerations: Absence Management
+      - Time Off
+      - Accruals, Period Schedules, and Balances
+      - Leave of Absence
+      - Absence Occurrences
+      - Absence Calculations
+    documented_touchpoints:
+      - STAFFING
+      - TIME_TRACKING
+      - SCHEDULING
+      - PAYROLL
+      - BENEFITS
+      - TALENT
+      - LEARNING
+    retrieval_topics:
+      default:
+        - "Setup Considerations: Absence Management"
+      time_off:
+        - "Setup Considerations: Time Off"
+        - "Time Off Plans"
+      leave:
+        - "Setup Considerations: Leave of Absence"
+        - "Leave Impacts"
+      payroll:
+        - "Time Off Calculations for Payroll"
+        - "Payroll and Absence"
+
+  TIME_TRACKING:
+    label: Time Tracking
+    documented_scope:
+      - time_entry
+      - time_entry_codes
+      - time_entry_templates
+      - time_kiosk
+      - time_calculations
+      - overtime
+      - shift_differentials
+      - meal_and_break_rules
+      - time_entry_validations
+      - period_schedules
+      - worker_eligibility
+      - calculated_time_to_payroll
+      - high_volume_time_entry
+      - time_approval
+      - attendance_management
+    routing_cues:
+      - hourly_worker
+      - blue_collar_worker
+      - clock_in_clock_out
+      - time_clock
+      - overtime
+      - shift_premium
+      - meal_break_rule
+      - attendance
+      - timesheet
+      - high_volume_time
+    key_topics:
+      - Time Tracking Basics
+      - Time Entry Setup
+      - Time Entry Codes
+      - Time Entry Templates
+      - Time Kiosk
+      - Time Calculations
+      - Time Attestations
+      - Time Entry Validations
+      - Worker Eligibility for Time Tracking
+      - Time Tracking, Payroll, and Absence
+      - Entering and Correcting Time
+      - Reviewing and Approving Time
+    documented_touchpoints:
+      - STAFFING
+      - SCHEDULING
+      - ABSENCE
+      - PAYROLL
+      - SELF_SERVICE
+      - REPORTING_ANALYTICS
+      - SECURITY
+    retrieval_topics:
+      default:
+        - "Time Tracking Basics"
+        - "Worker Eligibility for Time Tracking"
+      clocking:
+        - "Time Kiosk"
+        - "Manage Time Clock Events"
+      overtime:
+        - "Time Calculations"
+        - "Standard Overtime Calculations"
+        - "Shift Differential Calculations"
+      compliance:
+        - "Meal and Break Validations"
+        - "Time Attestations"
+        - "Time Entry Validations"
+      payroll:
+        - "Time Tracking, Payroll, and Absence"
+        - "How Payroll Processes Calculated Time"
+      high_volume:
+        - "High-Volume Time Entry"
+        - "Mass Enter Time"
+        - "Mass Submit Time"
+
+  SAFETY:
+    label: Safety Incident Tracking
+    documented_scope:
+      - safety_incident_reporting
+      - incident_types
+      - incident_locations
+      - injury_and_illness_data
+      - investigations
+      - involved_parties
+      - safety_questionnaires
+      - contextual_security
+    routing_cues:
+      - workplace_safety
+      - occupational_incident
+      - factory_incident
+      - injury_reporting
+      - safety_investigation
+      - location_specific_safety
+    key_topics:
+      - Set Up Safety Incident Tracking
+      - Safety Incident Reports
+      - Safety Incident Security
+    documented_touchpoints:
+      - STAFFING
+      - LOCALIZATION
+      - SECURITY
+      - BUSINESS_PROCESS
+      - REPORTING_ANALYTICS
+      - ABSENCE
+    retrieval_topics:
+      default:
+        - "Set Up Safety Incident Tracking"
+        - "Safety Incident Reports"
+      security:
+        - "Safety Incident Security"
+      absence:
+        - "Safety Incident Tracking leave of absence"
+    notes:
+      - "The guide states that Safety Incident Tracking does not automatically coordinate with Leave of Absence."
+
+  SELF_SERVICE:
+    label: Employee and Manager Self-Service
+    documented_scope:
+      - employee_self_service
+      - manager_self_service
+      - home_landing_pages
+      - worklets
+      - manager_actions
+      - self_service_security
+      - hcm_admin_hub
+      - manager_insights_hub
+      - mobile_access_paths
+    routing_cues:
+      - employee_experience
+      - manager_experience
+      - frontline_access
+      - mobile_access
+      - manager_approval_experience
+      - self_service
+      - shared_or_limited_desktop_access
+      - simplify_manager_tasks
+    key_topics:
+      - Set Up Employee Self-Service
+      - Set Up Manager Self-Service
+      - HCM Admin Hub
+      - Manager Insights Hub
+      - Time Management Hub
+      - Absence Calendar Experience
+    documented_touchpoints:
+      - WORKER_DATA
+      - STAFFING
+      - COMPENSATION
+      - BENEFITS
+      - TALENT
+      - ABSENCE
+      - TIME_TRACKING
+      - SCHEDULING
+      - SECURITY
+    retrieval_topics:
+      default:
+        - "Set Up Employee Self-Service"
+        - "Set Up Manager Self-Service"
+      managers:
+        - "Manager Insights Hub"
+      frontline:
+        - "Time Management Hub"
+        - "Time Tracking on Mobile"
+        - "Absence for Mobile"
+
+  HR_SERVICE:
+    label: Assistant, Everywhere, Help, and HR Service Experience
+    documented_scope:
+      - workday_assistant
+      - workday_everywhere
+      - case_management
+      - knowledge_management
+      - help_cases
+      - knowledge_articles
+      - notifications_in_collaboration_tools
+    routing_cues:
+      - hr_case_management
+      - employee_hr_questions
+      - knowledge_article
+      - conversational_hr_access
+      - microsoft_teams_access
+      - slack_access
+      - hr_service_delivery
+      - employee_help
+    key_topics:
+      - Workday Assistant
+      - Workday Everywhere
+      - Workday Help
+      - Case Management
+      - Knowledge Management
+    documented_touchpoints:
+      - SELF_SERVICE
+      - TIME_TRACKING
+      - ABSENCE
+      - RECRUITING
+      - STAFFING
+      - TALENT
+      - LEARNING
+      - BENEFITS
+      - SECURITY
+    retrieval_topics:
+      default:
+        - "Setup Considerations: Workday Assistant"
+        - "Concept: Workday Help"
+      cases:
+        - "Case Management"
+      knowledge:
+        - "Knowledge Management"
+      collaboration:
+        - "Workday Everywhere"
+        - "Workday Everywhere Notifications"
+
+cross_cutting_capabilities:
+
+  SECURITY:
+    role: cross_cutting
+    purpose: >-
+      Evaluate domain security, business process security, role/context constraints,
+      segment-based security, self-service access, and sensitive data exposure.
+    activate_when:
+      - access_or_visibility_question
+      - manager_or_worker_self_service
+      - country_or_segmented_data
+      - business_process_routing
+      - sensitive_worker_data
+      - safety_or_talent_confidentiality
+
+  BUSINESS_PROCESS:
+    role: cross_cutting
+    purpose: >-
+      Evaluate initiation, approvals, action steps, subprocesses, condition rules,
+      dynamic routing, notifications, and event lifecycle.
+    activate_when:
+      - approval_routing
+      - hire_or_change_job
+      - recruiting_stage_flow
+      - absence_request
+      - time_approval
+      - compensation_event
+      - safety_incident_workflow
+
+  REPORTING_ANALYTICS:
+    role: cross_cutting
+    purpose: >-
+      Evaluate delivered reports, report data sources, auditability, operational monitoring,
+      configuration validation, and downstream analytics requirements.
+    activate_when:
+      - audit_or_monitoring_requirement
+      - operational_dashboard
+      - compliance_reporting
+      - configuration_validation
+      - workforce_metrics
+
+  INTEGRATIONS:
+    role: cross_cutting
+    purpose: >-
+      Evaluate inbound/outbound data flows, EIB/web services/connectors, external systems,
+      high-volume data movement, and integration side effects of configuration.
+    activate_when:
+      - external_system
+      - mass_data_load
+      - payroll_interface
+      - time_clock_integration
+      - benefits_provider
+      - recruiting_provider
+      - learning_provider
+      - configuration_changes_affect_interfaces
+
+  PAYROLL:
+    role: cross_cutting_external_domain
+    purpose: >-
+      Evaluate downstream pay processing implications when HCM, compensation, time,
+      absence, benefits, worker/job, or organization configuration affects payroll.
+    activate_when:
+      - hourly_or_time_based_pay
+      - overtime
+      - allowance_or_earning
+      - pay_group
+      - period_schedule
+      - leave_with_payroll_effect
+      - benefit_deduction
+      - staffing_or_position_change
+    source_strategy:
+      primary: "Payroll Admin Guide"
+      secondary: "HCM Admin Guide touchpoints"
+
+routing_policy:
+  step_1: identify_business_problem_and_population
+  step_2: map_to_1_to_4_primary_capabilities
+  step_3: add_only_material_cross_cutting_capabilities
+  step_4: inspect_documented_touchpoints_for_second_hop_dependencies
+  step_5: choose_specific_retrieval_topics
+  step_6: retrieve_minimum_sufficient_evidence
+  step_7: synthesize_solution_and_mark_assumptions
+
+  guardrails:
+    - "Do not treat routing_cues as documented Workday terminology."
+    - "Do not activate a module merely because it could theoretically interact with the problem."
+    - "Do not retrieve whole product sections when a named topic is sufficient."
+    - "Separate documented behavior from solution recommendation."
+    - "Mark unconfirmed business characteristics as assumptions or questions."
+    - "Escalate to Payroll, Integrations, or Reporting source guides when they are the authoritative source."
+
+example_routes:
+  large_blue_collar_population:
+    primary:
+      - STAFFING
+      - TIME_TRACKING
+      - SCHEDULING
+      - COMPENSATION
+    likely_secondary:
+      - ABSENCE
+      - RECRUITING
+      - LEARNING
+      - SELF_SERVICE
+    conditional:
+      - SAFETY
+      - LOCALIZATION
+      - BENEFITS
+    cross_cutting:
+      - PAYROLL
+      - SECURITY
+      - BUSINESS_PROCESS
+    do_not_activate_by_default:
+      - TALENT
+      - HR_SERVICE
+
+  position_vs_job_management:
+    primary:
+      - STAFFING
+    likely_secondary:
+      - RECRUITING
+      - COMPENSATION
+      - TIME_TRACKING
+      - ABSENCE
+    cross_cutting:
+      - PAYROLL
+      - SECURITY
+
+  factory_overtime_and_shift_premiums:
+    primary:
+      - TIME_TRACKING
+      - COMPENSATION
+      - SCHEDULING
+    likely_secondary:
+      - STAFFING
+    cross_cutting:
+      - PAYROLL
+      - BUSINESS_PROCESS
+      - SECURITY
