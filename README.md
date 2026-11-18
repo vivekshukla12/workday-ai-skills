@@ -8,7 +8,7 @@ These skills provide focused instructions and supporting references that help co
 
 | Skill | Description | Lifecycle | Release state |
 | --- | --- | --- | --- |
-| [WQL Formatter](skills/wql-formatter/) | Formats or minifies Workday Query Language queries while preserving their logic and identifying plausible syntax errors. | 🟢 **Stable** | **Released** |
+| [WQL Formatter](skills/wql-formatter/) | Formats, minifies, and compares Workday Query Language queries, with structured diff reports and plausible syntax checks. | 🟢 **Stable** | **Released** |
 | [Workday Prism Assistant](skills/workday-prism-assistant/) | Supports Prism Analytics architecture, ingestion, transformations, calculated fields, security, publishing, scheduling, and troubleshooting. | 🟡 **Beta** | **Pre-release** |
 | [Workforce Crisis Planner](skills/workforce-crisis-planner/) | Links workforce and financial data to crisis scenarios, gaps, approved mitigations, and implementation timelines. | 🔵 **Development** | **Unreleased** |
 
